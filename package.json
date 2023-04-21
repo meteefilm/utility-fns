@@ -1,0 +1,22 @@
+{
+  "name": "sg-utilities",
+  "version": "1.0.0",
+  "description": "custom utillies for js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meteefilm/sg-utilities.git"
+  },
+  "keywords": [
+    "utilities"
+  ],
+  "author": "Metee Khumchat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/meteefilm/sg-utilities/issues"
+  },
+  "homepage": "https://github.com/meteefilm/sg-utilities#readme"
+}
