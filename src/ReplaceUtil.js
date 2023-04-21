@@ -1,4 +1,6 @@
-export const replaceNoENtoTH = (str) => {
+'use strict';
+
+module.exports.replaceNoENtoTH = (str) => {
     str = str.toString();
     var find_full = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
     var replace_full = ["๑", "๒", "๓", "๔", "๕", "๖", "๗", "๘", "๙", "๐"];
@@ -9,7 +11,7 @@ export const replaceNoENtoTH = (str) => {
     return str;
 };
 
-export const replaceMonthENtoTH = (str) => {
+module.exports.replaceMonthENtoTH = (str) => {
     str = str.toString();
     var find_full = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
     var replace_full = ["๑", "๒", "๓", "๔", "๕", "๖", "๗", "๘", "๙", "๐"];
@@ -20,7 +22,7 @@ export const replaceMonthENtoTH = (str) => {
     return str;
 };
 
-export const replaceDataToKey = (data,keyObj) => { 
+module.exports.replaceDataToKey = (data,keyObj) => { 
     let newData = {...keyObj}
     for(const key in newData){
         if(typeof newData[key]  === "number"){
@@ -30,4 +32,15 @@ export const replaceDataToKey = (data,keyObj) => {
         }
     }
     return newData
+}
+
+module.exports.replaceNull = (data) => { 
+    if(data){
+        for(const key in data){
+            if(data[key] === null){
+                data[key] = ""
+            }
+        }
+    }
+    return data
 }

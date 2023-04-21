@@ -1,5 +1,6 @@
+'use strict';
 
-export const RandomText = (length = 10) => {
+module.exports.RandomText = (length = 10) => {
     var result = "";
     var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     var charactersLength = characters.length;
@@ -9,7 +10,7 @@ export const RandomText = (length = 10) => {
     return result;
 };
 
-export const NumberFormat = (value, float = true) => {
+module.exports.NumberFormat = (value, float = true) => {
     let newData = value;
     if (value !== undefined && value !== "" && value !== null) {
         const numeral = require("numeral");
@@ -19,11 +20,10 @@ export const NumberFormat = (value, float = true) => {
             newData = numeral(newData).format("0,0");
         }
     }
-
     return newData;
 };
 
-export const messagesWarning = (label="การทำรายการ") => { 
+module.exports.messagesWarning = (label="การทำรายการ") => { 
     return (
         <>
             <span>
@@ -36,12 +36,4 @@ export const messagesWarning = (label="การทำรายการ") => {
         </>
     )
 
-}
-
-export const getErrorMessage = (res) => {
-    let dataList = res?.dataList || [];
-    if (!dataList.length)
-        return '';
-    let data = dataList[0];
-    return data?.statusMessage || '';
 }

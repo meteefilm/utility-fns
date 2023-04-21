@@ -1,6 +1,6 @@
 {
-  "name": "sg-utilities",
-  "version": "1.0.0",
+  "name": "utility-fns",
+  "version": "1.1.0",
   "description": "custom utillies for js",
   "main": "index.js",
   "scripts": {
@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/meteefilm/sg-utilities.git"
+    "url": "git+https://github.com/meteefilm/utility-fns.git"
   },
   "keywords": [
-    "utilities"
+    "utilities","utility","functions"
   ],
   "author": "Metee Khumchat",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/meteefilm/sg-utilities/issues"
+    "url": "https://github.com/meteefilm/utility-fns/issues"
   },
-  "homepage": "https://github.com/meteefilm/sg-utilities#readme"
+  "homepage": "https://github.com/meteefilm/utility-fns#readme"
 }
