@@ -1,5 +1,6 @@
 'use strict';
 const NullUtil = require('./NullUtil')
+
 /**
  * Find the maximum value of a key in an array of objects
  * @param arr - The array to search.
@@ -32,7 +33,7 @@ module.exports.indexOfMax = (arr,key='seq') => {
  * @returns The name of the list item that matches the code.
  */
 module.exports.indexOfMsList = (arr = [],code = '',key = 'code',name = 'name') => {
-    let data = '-'
+    let data = ''
     if(Array.isArray(arr) && arr.length > 0){
         let index = arr.findIndex((item)=>item[key] === code )
         if(index > -1){
@@ -79,6 +80,19 @@ module.exports.sortIndexOfList = (arr,key='index') => {
     return arr
  
     
+}
+
+module.exports.delList = (selectList, dataList) => {
+    for (let d = selectList.length - 1; d >= 0; d--) {
+        dataList.splice(selectList[d].index, 1);
+    }
+
+    //setค่า index และ seq ใหม่
+    for (var i = 0; i < dataList.length; ++i) {
+        dataList[i].index = i;
+        dataList[i].charge_seq = (i + 1);
+    }
+    return dataList
 }
 
 

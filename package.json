@@ -11,12 +11,18 @@
     "url": "git+https://github.com/meteefilm/utility-fns.git"
   },
   "keywords": [
-    "utilities","utility","functions"
+    "utilities",
+    "utility",
+    "functions"
   ],
   "author": "Metee Khumchat",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/meteefilm/utility-fns/issues"
   },
-  "homepage": "https://github.com/meteefilm/utility-fns#readme"
+  "homepage": "https://github.com/meteefilm/utility-fns#readme",
+  "dependencies": {
+    "@types/numeral": "^2.0.2",
+    "numeral": "^2.0.6"
+  }
 }

@@ -10,6 +10,8 @@ npm install utility-fns
 - **Array**
 - **Replace** 
 - **Text**
+- **Validate Input**
+- **Store**
 
 ## Example 
 **Null Function**
