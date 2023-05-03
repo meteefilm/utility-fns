@@ -25,6 +25,35 @@ module.exports.replaceNull = ReplaceUtil.replaceNull;
 const TextUtil = require('./src/TextUtil');
 module.exports.NumberFormat = TextUtil.NumberFormat;
 module.exports.RandomText = TextUtil.RandomText;
-module.exports.messagesWarning = TextUtil.messagesWarning;
+// module.exports.messagesWarning = TextUtil.messagesWarning;
 
+/** ValidateUtil **/
+const ValidateUtil = require('./src/ValidateUtil');
+// module.exports.validateDT = ValidateUtil.validateDT;
+// module.exports.validateDTT = ValidateUtil.validateDTT;
+module.exports.validateDateSF = ValidateUtil.validateDateSF;
+// module.exports.validateNumber = ValidateUtil.validateNumber;
+// module.exports.validateText = ValidateUtil.validateText;
+
+/** storeUtil **/
+const storeUtil = require('./src/storeUtil');
+module.exports.storeCDI = storeUtil.storeCDI;
+module.exports.storeCDL = storeUtil.storeCDL;
+module.exports.storeFL = storeUtil.storeFL;
+module.exports.storeSBR = storeUtil.storeSBR;
+module.exports.storeSDI = storeUtil.storeSDI;
+module.exports.storeSDL = storeUtil.storeSDL;
+module.exports.storeSDNIL = storeUtil.storeSDNIL;
+
+/** storeUtil **/
+const DateUtil = require('./src/DateUtil');
+module.exports.addDays = DateUtil.addDays;
+module.exports.configDateTH = DateUtil.configDateTH;
+module.exports.formatDateAPI = DateUtil.formatDateAPI;
+module.exports.getCurYearTH = DateUtil.getCurYearTH;
+module.exports.getDayData = DateUtil.getDayData;
+module.exports.getDayList = DateUtil.getDayList;
+module.exports.getMonthData = DateUtil.getMonthData;
+module.exports.getMonthList = DateUtil.getMonthList;
+module.exports.getYearList = DateUtil.getYearList;
 

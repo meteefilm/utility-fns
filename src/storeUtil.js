@@ -1,7 +1,17 @@
-import { initBaseStore } from "../store/types/baseStore";
+'use strict';
+
+const initBaseStore = {
+    response : {
+        dataList: [],
+        data : undefined,
+        errorcode : 0,
+        errormessage : "",
+        search : undefined
+    }
+}
 
 /** store Check Data List */
-export const storeCDL = (store) => { 
+module.exports.storeCDL = (store) => { 
     let check = true;
     if((!store.dataList || store.dataList.length === 0) && (store.errorcode === 0 && !store.isLoadList)){
         check = false;
@@ -10,7 +20,7 @@ export const storeCDL = (store) => {
 }
 
 //** store Check Data Info */
-export const storeCDI = (store,search) => { 
+module.exports.storeCDI = (store,search) => { 
     let data = undefined;
     if(store.dataInfoList && store.dataInfoList.length > 0){
         let filter = store.dataInfoList.filter((e)=>{
@@ -28,25 +38,9 @@ export const storeCDI = (store,search) => {
 
     return data
 }
-// /** store Call Data List and SetState or return */
-// export const storeCDLNS = (store,dispatch,setDataList,page) => { 
-    
-//     if(!storeCDL(store)){
-//         if(store.fetchList !== undefined){
-//             dispatch(store.fetchList)
-//         }
-//         return []
-//     }else{
-//         if(setDataList !== undefined){
-//             setDataList(store.dataList)
-//         }else{
-//             return []
-//         }
-//     }
-// }
 
 /** Set Data List in store */
-export const storeSDL = (state,action) => { 
+module.exports.storeSDL = (state,action) => { 
     if(action && action.payload !== undefined){
         state.dataList = action.payload.dataList;
         state.errorcode  = action.payload.errorcode;
@@ -62,7 +56,7 @@ export const storeSDL = (state,action) => {
 }
 
 /** Set Data List in info list store */
-export const storeSDNIL = (state,action) => { 
+module.exports.storeSDNIL = (state,action) => { 
     if(action && action.payload !== undefined){
         state.dataInfoList = action.payload.dataList;
         state.errorcode  = action.payload.errorcode;
@@ -77,7 +71,7 @@ export const storeSDNIL = (state,action) => {
 }
 
 /** Set Data Info in store */
-export const storeSDI = (state,action) => { 
+module.exports.storeSDI = (state,action) => { 
     if(action && action.payload !== undefined){
         state.data = action.payload.data;
         state.errorcode  = action.payload.errorcode;
@@ -91,9 +85,8 @@ export const storeSDI = (state,action) => {
     state.loading = false  
 }
 
-
 /** Set Base Respon */
-export const storeSBR = (search = undefined) => { 
+module.exports.storeSBR = (search = undefined) => { 
     return {
         ...initBaseStore.response,
         search
@@ -101,7 +94,7 @@ export const storeSBR = (search = undefined) => {
 }
 
 /** store Filter DataList */
-export const storeFL = (state,action) => { 
+module.exports.storeFL = (state,action) => { 
     let list = state.dataList
     if(action.payload){
         list = state.dataList.filter((e)=>{
