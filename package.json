@@ -11,7 +11,9 @@
     "url": "git+https://github.com/meteefilm/utility-fns.git"
   },
   "keywords": [
-    "utilities","utility","functions"
+    "utilities",
+    "utility",
+    "functions"
   ],
   "author": "Metee Khumchat",
   "license": "ISC",
