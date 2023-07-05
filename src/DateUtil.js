@@ -245,11 +245,11 @@ module.exports.getDayData = (value="", key="label",LOCAL= "TH") => {
 };
 
 module.exports.getMonthData = (value="", key="label",LOCAL= "TH") => {
-    return indexOfMsList(this.getMonthList(LOCAL),value,"value",key)
+  return indexOfMsList(this.getMonthList(LOCAL),value,"value",key)
 };
 
 module.exports.getCurYearTH = () => {
-    return new Date().getFullYear() > 2500?new Date().getFullYear():new Date().getFullYear()+543;
+  return new Date().getFullYear() > 2500?new Date().getFullYear():new Date().getFullYear()+543;
 };
 
 /**

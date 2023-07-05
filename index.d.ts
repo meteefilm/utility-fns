@@ -13,7 +13,6 @@ export interface FormatOptions {
     format ?: number;
 }
 
-//********************** */
 //** Array **/
 export declare function indexOfMax(obj : ArrayUtils): string | number;
 export declare function indexOfList(obj : ArrayUtils): any;
@@ -56,11 +55,11 @@ export declare function storeSDL(state : any, action : any): void;
 export declare function storeSDO(state : any, action : any , keyObj : string ): void;
 
 //** Text **/
-export declare function NumberFormat(value : number,float ?: boolean = true): string;
+export declare function NumberFormat(value : number,float ?: boolean ): string;
 export declare function RandomText(length : number): string;
 
 //** validate **/
-export declare function validateDateSF(obj : object ,startId : string, endId : string, report ?: boolean): string;
+// export declare function validateDateSF(obj : object ,startId : string, endId : string, report ?: boolean): string;
 
 
 
