@@ -7,7 +7,7 @@ const NullUtil = require('./NullUtil')
  * @param key - The key to use for the comparison.
  * @returns The index of the max value.
  */
-module.exports.indexOfMax = (arr,key='seq') => {
+module.exports.indexOfMax = ({arr,key='seq'}) => {
  
     if (arr.length === 0) {
         return 0;
@@ -32,7 +32,7 @@ module.exports.indexOfMax = (arr,key='seq') => {
  * @param [code] - The code of the list to be found.
  * @returns The name of the list item that matches the code.
  */
-module.exports.indexOfMsList = (arr = [],code = '',key = 'code',name = 'name') => {
+module.exports.indexOfList = ({arr = [],code = '',key = 'code',name = 'name'}) => {
     let data = ''
     if(Array.isArray(arr) && arr.length > 0){
         let index = arr.findIndex((item)=>item[key] === code )
@@ -50,7 +50,7 @@ module.exports.indexOfMsList = (arr = [],code = '',key = 'code',name = 'name') =
  * @param [code] - The code you want to find in the array
  * @param [key=code] - the key of the object you want to find
  */
-module.exports.ObjectOfMsList = (arr = [],code = '',key = 'code') => {
+module.exports.objectOfList = ({arr = [],code = '',key = 'code'}) => {
     let data = undefined
     if(Array.isArray(arr) && arr.length > 0){
         let index = arr.findIndex((item)=>item[key] === code )
@@ -82,9 +82,14 @@ module.exports.sortIndexOfList = (arr,key='index') => {
     
 }
 
-module.exports.delList = (selectList, dataList) => {
-    for (let d = selectList.length - 1; d >= 0; d--) {
-        dataList.splice(selectList[d].index, 1);
+//** Delete data and Sort List by index */
+module.exports.dnsList = (selectList, dataList) => {
+    if(typeof selectList ==="number"){
+        dataList.splice(selectList[selectList].index, 1);
+    }else{
+        for (let d = selectList.length - 1; d >= 0; d--) {
+            dataList.splice(selectList[d].index, 1);
+        }
     }
 
     //setค่า index และ seq ใหม่

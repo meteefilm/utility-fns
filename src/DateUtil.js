@@ -256,7 +256,7 @@ module.exports.getCurYearTH = () => {
  * Custom Date Function
  * * ADD Date
  */
-module.exports.addDays = (date, days) => {
+module.exports.addDays = (date, days=1) => {
   const newDate = new Date(Number(date));
   newDate.setDate(date.getDate() + days);
   return newDate;

@@ -10,19 +10,19 @@ const initBaseStore = {
     }
 }
 
-/** store Check Data List */
-module.exports.storeCDL = (store) => { 
+//** store Check Data List */
+module.exports.storeCDL = (store = undefined) => { 
     let check = true;
-    if((!store.dataList || store.dataList.length === 0) && (store.errorcode === 0 && !store.isLoadList)){
+    if( !store || ((!store.dataList || store.dataList.length === 0) && (store.errorcode === 0 && !store.isLoadList))){
         check = false;
     }
     return check
 }
 
 //** store Check Data Info */
-module.exports.storeCDI = (store,search) => { 
+module.exports.storeCDI = (store = undefined,search) => { 
     let data = undefined;
-    if(store.dataInfoList && store.dataInfoList.length > 0){
+    if(store && store.dataInfoList && store.dataInfoList.length > 0){
         let filter = store.dataInfoList.filter((e)=>{
             // let conCheck = true;
             let conCheck = true
@@ -39,7 +39,25 @@ module.exports.storeCDI = (store,search) => {
     return data
 }
 
-/** Set Data List in store */
+//** store Check Data Object */
+module.exports.storeCDO = (store,keyFind="dataList",search) => { 
+    let data = undefined;
+    if(store[keyFind] && store[keyFind].length > 0){
+        let filter = store[keyFind].filter((e)=>{
+            let conCheck = true
+            for(let key in search){
+                conCheck = conCheck && e[key] === search[key];
+            }
+            return conCheck
+        })
+        if(filter.length > 0){
+            data = filter[0]
+        }
+    }
+    return data
+}
+
+//** Set Data to Data List store*/
 module.exports.storeSDL = (state,action) => { 
     if(action && action.payload !== undefined){
         state.dataList = action.payload.dataList;
@@ -55,23 +73,8 @@ module.exports.storeSDL = (state,action) => {
     state.loading = false  
 }
 
-/** Set Data List in info list store */
-module.exports.storeSDNIL = (state,action) => { 
-    if(action && action.payload !== undefined){
-        state.dataInfoList = action.payload.dataList;
-        state.errorcode  = action.payload.errorcode;
-        state.errormessage = action.payload.errormessage;
-    }else{
-        state.dataInfoList = [];
-        state.errorcode  = 0;
-        state.errormessage = "";
-    }
-    state.isLoadData = true
-    state.loading = false  
-}
-
-/** Set Data Info in store */
-module.exports.storeSDI = (state,action) => { 
+//** Set Data to Data store */
+module.exports.storeSDD = (state,action) => { 
     if(action && action.payload !== undefined){
         state.data = action.payload.data;
         state.errorcode  = action.payload.errorcode;
@@ -85,6 +88,35 @@ module.exports.storeSDI = (state,action) => {
     state.loading = false  
 }
 
+//** Set Data to Info List store */
+module.exports.storeSDI = (state,action) => { 
+    if(action && action.payload !== undefined){
+        state.dataInfoList = action.payload.dataList;
+        state.errorcode  = action.payload.errorcode;
+        state.errormessage = action.payload.errormessage;
+    }else{
+        state.dataInfoList = [];
+        state.errorcode  = 0;
+        state.errormessage = "";
+    }
+    state.isLoadData = true
+    state.loading = false  
+}
+
+//** Set Data to data object store */
+module.exports.storeSDO = (state,action,keyObj="dataList") => { 
+    if(action && action.payload !== undefined){
+        state[keyObj] = action.payload.dataList;
+        state.errorcode  = action.payload.errorcode;
+        state.errormessage = action.payload.errormessage;
+    }else{
+        state[keyObj] = [];
+        state.errorcode  = 0;
+        state.errormessage = "";
+    }
+    state.loading = false  
+}
+
 /** Set Base Respon */
 module.exports.storeSBR = (search = undefined) => { 
     return {
@@ -94,7 +126,7 @@ module.exports.storeSBR = (search = undefined) => {
 }
 
 /** store Filter DataList */
-module.exports.storeFL = (state,action) => { 
+module.exports.storeFT = (state,action) => { 
     let list = state.dataList
     if(action.payload){
         list = state.dataList.filter((e)=>{
