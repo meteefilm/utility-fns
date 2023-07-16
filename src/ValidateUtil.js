@@ -48,5 +48,15 @@ module.exports.validateDateSF = (obj,startId, endId,report=false) => {
         }
     }
     return obj
-
 }
+
+module.exports.validateCitizenId = (id = "") => {
+    if (id?.substring(0, 1) === 0) return false;
+    if (id?.length !== 13) return false;
+    let i,sum = 0;
+    for (i = 0; i < 12; i++) sum += parseFloat(id?.charAt(i)) * (13 - i);
+    if ((11 - (sum % 11)) % 10 !== parseFloat(id?.charAt(12))) return false;
+    return true;
+};
+
+

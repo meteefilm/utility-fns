@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 const { indexOfMsList } = require("./ArrayListUtil");
 const { NullString } = require("./NullUtil");
@@ -95,38 +95,37 @@ const LOCAL_CONFIG = {
 };
 
 /**
-* Main Convert Dete Fns
-*/
+ * Main Convert Dete Fns
+ */
 const mainConvertDate = (date = "", time = false, format = 0) => {
-    if (date) {
+  if (date) {
+    let cur_date = new Date(date);
+    let timezoneOffset = cur_date.getTimezoneOffset() / 60;
+    cur_date.setHours(cur_date.getHours() - timezoneOffset);
+    cur_date = cur_date.toISOString().replace("T", " ").replace("Z", "");
+
+    if (date && NullString(date) !== "" && date !== "null") {
       let cur_date = new Date(date);
       let timezoneOffset = cur_date.getTimezoneOffset() / 60;
       cur_date.setHours(cur_date.getHours() - timezoneOffset);
       cur_date = cur_date.toISOString().replace("T", " ").replace("Z", "");
-  
-      if (date && NullString(date) !== "" && date !== "null") {
-        let cur_date = new Date(date);
-        let timezoneOffset = cur_date.getTimezoneOffset() / 60;
-        cur_date.setHours(cur_date.getHours() - timezoneOffset);
-        cur_date = cur_date.toISOString().replace("T", " ").replace("Z", "");
-  
-        let _data = cur_date.split(" ");
-        let day = _data[0]
-        if(day.split("-").length === 3 && format === 1 ){
-            let _day =_data[0].split("-") 
-            day = _day[2]+"-"+_day[1]+"-"+_day[0]
-            
-        }
 
-        if (time === true) {
-          return day + " " + _data[1].substring(0, _data[1].indexOf("."));
-        } else {
-          return _data[0];
-        }
+      let _data = cur_date.split(" ");
+      let day = _data[0];
+      if (day.split("-").length === 3 && format === 1) {
+        let _day = _data[0].split("-");
+        day = _day[2] + "-" + _day[1] + "-" + _day[0];
+      }
+
+      if (time === true) {
+        return day + " " + _data[1].substring(0, _data[1].indexOf("."));
+      } else {
+        return _data[0];
       }
     }
-  
-    return date;
+  }
+
+  return date;
 };
 
 module.exports.configDateTH = () => {
@@ -140,36 +139,36 @@ module.exports.configDateTH = () => {
  * ! year
  */
 module.exports.getDayList = (LOCAL = "TH") => {
-    let list = [];
-    let localData = LOCAL_CONFIG[LOCAL];
-    if (localData) {
-      for (let i = 0; i < 7; i++) {
-        let keyStr = "" + (i + 1);
-        let data = {
-          index : i,
-          id: i + 1,
-          value: keyStr,
-          code: keyStr.padStart(2, "0"),
+  let list = [];
+  let localData = LOCAL_CONFIG[LOCAL];
+  if (localData) {
+    for (let i = 0; i < 7; i++) {
+      let keyStr = "" + (i + 1);
+      let data = {
+        index: i,
+        id: i + 1,
+        value: keyStr,
+        code: keyStr.padStart(2, "0"),
+      };
+
+      if (localData.dayNames) {
+        data = {
+          ...data,
+          label: localData.dayNames[i],
         };
-  
-        if (localData.dayNames) {
-          data = {
-            ...data,
-            label: localData.dayNames[i],
-          };
-        }
-  
-        if (localData.dayNamesShort) {
-          data = {
-            ...data,
-            short: localData.dayNamesShort[i],
-          };
-        }
-  
-        list.push(data);
       }
+
+      if (localData.dayNamesShort) {
+        data = {
+          ...data,
+          short: localData.dayNamesShort[i],
+        };
+      }
+
+      list.push(data);
     }
-    return list;
+  }
+  return list;
 };
 
 module.exports.getMonthList = (LOCAL = "TH") => {
@@ -179,7 +178,7 @@ module.exports.getMonthList = (LOCAL = "TH") => {
     for (let i = 0; i < 12; i++) {
       let keyStr = "" + (i + 1);
       let data = {
-        index : i,
+        index: i,
         id: i + 1,
         value: keyStr,
         code: keyStr.padStart(2, "0"),
@@ -211,104 +210,136 @@ module.exports.getMonthList = (LOCAL = "TH") => {
 module.exports.getYearList = (start = 0, end = 0, LOCAL = "TH") => {
   const list = [];
   let curYear = new Date().getFullYear();
-  if(LOCAL === "TH"){
-    curYear = curYear > 2500 ? curYear : curYear+543
-    start = start > 0 && start < 2500 ?start+543 : start;
-    end = end > 0 && end < 2500 ?end+543 : end;
+  if (LOCAL === "TH") {
+    curYear = curYear > 2500 ? curYear : curYear + 543;
+    start = start > 0 && start < 2500 ? start + 543 : start;
+    end = end > 0 && end < 2500 ? end + 543 : end;
   }
-  start = ( start > 0 )?start:( start < 0 )?curYear:curYear-10;
-  end =  ( end > 0 )?end:( end < 0 )?curYear:curYear+10;
+  start = start > 0 ? start : start < 0 ? curYear : curYear - 10;
+  end = end > 0 ? end : end < 0 ? curYear : curYear + 10;
 
-  let _start = start > end?start:end
-  let _end = start > end?end:start
+  let _start = start > end ? start : end;
+  let _end = start > end ? end : start;
 
-  for(let i = _start; i >= _end; i--){
+  for (let i = _start; i >= _end; i--) {
     list.push({
-        value : i,
-        revalue : _start > 2500?(i-543):(i+543),
-        label : i,
-    })
-
+      value: i,
+      revalue: _start > 2500 ? i - 543 : i + 543,
+      label: i,
+    });
   }
 
   return list;
 };
 
 /**
- * * Get single Data 
+ * * Get single Data
  * ! Day
  * ! Month
  * ! Current Thai year
  */
-module.exports.getDayData = (value="", key="label",LOCAL= "TH") => {
-    return indexOfMsList(this.getDayList(LOCAL),value,"value",key)
+module.exports.getDayData = (value = "", key = "label", LOCAL = "TH") => {
+  return indexOfMsList(this.getDayList(LOCAL), value, "value", key);
 };
 
-module.exports.getMonthData = (value="", key="label",LOCAL= "TH") => {
-  return indexOfMsList(this.getMonthList(LOCAL),value,"value",key)
+module.exports.getMonthData = (value = "", key = "label", LOCAL = "TH") => {
+  return indexOfMsList(this.getMonthList(LOCAL), value, "value", key);
 };
 
 module.exports.getCurYearTH = () => {
-  return new Date().getFullYear() > 2500?new Date().getFullYear():new Date().getFullYear()+543;
+  return new Date().getFullYear() > 2500
+    ? new Date().getFullYear()
+    : new Date().getFullYear() + 543;
 };
 
 /**
  * Custom Date Function
  * * ADD Date
  */
-module.exports.addDays = (date, days=1) => {
+module.exports.addDays = (date, days = 1) => {
   const newDate = new Date(Number(date));
   newDate.setDate(date.getDate() + days);
   return newDate;
 };
 
 module.exports.formatDateAPI = ({
-    date = "",
-    type ,
-    regEx = true, 
-    regStr = "-",
-    format = 0
+  date = "",
+  type,
+  regEx = true,
+  regStr = "-",
+  format = 0,
 }) => {
+  /**
+   * type Formate
+   * dateForm => 2,from,f
+   * dateTo => 3,to,t
+   * not show time => 0,false
+   * normal : true,1,"",undefine, unsent
+   */
+  let data = "";
+  if (date !== undefined && date !== null && date !== "") {
+    data = new Date(date);
+    type = typeof type === "string" ? type.toUpperCase() : type;
+    switch (type) {
+      case 2:
+      case "FROM":
+      case "F":
+        data = mainConvertDate(data, false, format) + " 00:00:00";
+        break;
+      case 3:
+      case "TO":
+      case "T":
+        data = mainConvertDate(data, false, format) + " 23:59:59";
+        break;
+      case false:
+      case 0:
+        data = mainConvertDate(data, false, format);
+        break;
+      case 1:
+      case true:
+      default:
+        data = mainConvertDate(data, true, format);
+    }
+  }
 
-    /**
-     * type Formate
-     * dateForm => 2,from,f
-     * dateTo => 3,to,t
-     * not show time => 0,false
-     * normal : true,1,"",undefine, unsent
-     */
-    let data = "";
-    if (date !== undefined && date !== null && date !== "") {
-      data = new Date(date);
-      type = typeof type === "string" ? type.toUpperCase() : type;
-      switch (type) {
-        case 2:
-        case "FROM":
-        case "F":
-          data = mainConvertDate(data, false , format) + " 00:00:00";
-          break;
-        case 3:
-        case "TO":
-        case "T":
-          data = mainConvertDate(data, false, format) + " 23:59:59";
-          break;
-        case false:
-        case 0:
-          data = mainConvertDate(data, false, format);
-          break;
-        case 1:
-        case true:
-        default:
-          data = mainConvertDate(data, true, format);
+  if (regEx === false) {
+    data = data.replaceAll("-", "").replaceAll(":", "");
+  } else {
+    if (regStr !== "-") {
+      data = data.replaceAll("-", regStr);
+    }
+  }
+  return data;
+};
+module.exports.formatDateTH = ({ date = "",format = false }) => {
+  if (date && NullString(date) !== "" && date !== "null") {
+    let cur_date = new Date(date);
+    if (isValidDate(cur_date)) {
+      let timezoneOffset = cur_date.getTimezoneOffset() / 60;
+      cur_date.setHours(cur_date.getHours() - timezoneOffset);
+      cur_date = cur_date.toISOString().replace("T", " ").replace("Z", "");
+
+      let _data = cur_date.split(" ");
+      let _inDay = _data[0].split("-");
+
+      if (format === true) {
+        return _inDay[2] +"/" +_inDay[1] +"/" +(parseInt(_inDay[0]) + 543) +" " +_data[1].substring(0, _data[1].indexOf("."));
+      } else {
+        return _inDay[2] + "/" + _inDay[1] + "/" + (parseInt(_inDay[0]) + 543);
       }
     }
+  }
+  return date;
+};
 
-    if(regEx === false){
-        data = data.replaceAll("-", "").replaceAll(":", "");
-    }else{
-        if(regStr !== "-"){
-            data = data.replaceAll("-", regStr)
-        }
-    }
-    return data;
+module.exports.formatDateSession = ({date = "", format=false}) => {
+  let data = "";
+  if (date !== undefined && date !== null) {
+      if (format === true) {
+          data = mainConvertDate(date, isTime).replaceAll("-", "").replaceAll(":", "");
+      } else {
+          data = mainConvertDate(date, isTime).replaceAll("-", "");
+      }
+  }
+  return data;
 };

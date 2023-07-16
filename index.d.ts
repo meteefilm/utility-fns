@@ -24,6 +24,8 @@ export declare function dnsList(select : number | [] , dataList : []): object;
 export declare function addDays(date : Date, days : number): string | number;
 export declare function configDateTH(): object;
 export declare function formatDateAPI(option : FormatOptions): string;
+export declare function formatDateTH(option : FormatOptions): string;
+export declare function formatDateAPI(option : FormatOptions): string;
 export declare function getCurYearTH(): string | number;
 export declare function getDayData(value : string, key ?: string, LOCAL ?: string): object;
 export declare function getDayList(LOCAL ?: string): object;
@@ -59,7 +61,9 @@ export declare function NumberFormat(value : number,float ?: boolean ): string;
 export declare function RandomText(length : number): string;
 
 //** validate **/
-// export declare function validateDateSF(obj : object ,startId : string, endId : string, report ?: boolean): string;
+export declare function validateDateSF(obj : object ,startId : string, endId : string, report ?: boolean): string;
+export declare function validateCitizenId(id :string | number): boolean;
+
 
 
 

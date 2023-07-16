@@ -68,7 +68,7 @@ module.exports.objectOfList = ({arr = [],code = '',key = 'code'}) => {
  * @param [key=index] - the key to sort by
  * @returns An array of objects with the key of index and the value of the index + 1
  */
-module.exports.sortIndexOfList = (arr,key='index') => {
+module.exports.sortIndexOfList = ({arr,key='index'}) => {
     if(arr && arr.length > 0){
         return arr.map((item,index)=>{
             return {

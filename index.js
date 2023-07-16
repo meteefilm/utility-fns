@@ -29,6 +29,8 @@ module.exports.RandomText = TextUtil.RandomText;
 /** ValidateUtil **/
 const ValidateUtil = require('./src/ValidateUtil');
 module.exports.validateDateSF = ValidateUtil.validateDateSF;
+module.exports.validateCitizenId = ValidateUtil.validateCitizenId;
+
 
 /** storeUtil **/
 const storeUtil = require('./src/storeUtil');
@@ -46,13 +48,14 @@ const DateUtil = require('./src/DateUtil');
 module.exports.addDays = DateUtil.addDays;
 module.exports.configDateTH = DateUtil.configDateTH;
 module.exports.formatDateAPI = DateUtil.formatDateAPI;
+module.exports.formatDateSession = DateUtil.formatDateSession;
+module.exports.formatDateTH = DateUtil.formatDateTH;
 module.exports.getCurYearTH = DateUtil.getCurYearTH;
 module.exports.getDayData = DateUtil.getDayData;
 module.exports.getDayList = DateUtil.getDayList;
 module.exports.getMonthData = DateUtil.getMonthData;
 module.exports.getMonthList = DateUtil.getMonthList;
 module.exports.getYearList = DateUtil.getYearList;
-
 
 // 'use strict';
 
