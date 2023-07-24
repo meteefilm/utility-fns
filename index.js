@@ -15,6 +15,11 @@ module.exports.objectOfList = ArrayListUtil.objectOfList;
 module.exports.sortIndexOfList = ArrayListUtil.sortIndexOfList;
 module.exports.dnsList = ArrayListUtil.dnsList;
 
+/** ConvertUtil **/
+const ConvertUtil = require('./src/ConvertUtil');
+module.exports.convertNumber = ConvertUtil.convertNumber;
+module.exports.convertString = ConvertUtil.convertString;
+
 /** Replace **/
 const ReplaceUtil = require('./src/ReplaceUtil');
 module.exports.replaceDataToKey = ReplaceUtil.replaceDataToKey;

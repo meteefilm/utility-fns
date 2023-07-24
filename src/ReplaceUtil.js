@@ -1,5 +1,7 @@
 'use strict';
 
+const ConvertUtil = require('./ConvertUtil')
+
 module.exports.replaceNoENtoTH = (value) => {
     value = value.toString();
     var find_full = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
@@ -15,9 +17,9 @@ module.exports.replaceDataToKey = (dataObj,keyObj) => {
     let newData = {...keyObj}
     for(const key in newData){
         if(typeof newData[key]  === "number"){
-            newData[key] = dataObj[key] && data[key] !== null?dataObj[key]:newData[key]
+            newData[key] = dataObj[key] && dataObj[key] !== null?ConvertUtil.convertNumber(dataObj[key]):newData[key]
         }else {
-            newData[key] = dataObj[key] && data[key] !== null?dataObj[key]:newData[key]
+            newData[key] = dataObj[key] && dataObj[key] !== null?""+dataObj[key]:newData[key]
         }
     }
     return newData
@@ -33,3 +35,4 @@ module.exports.replaceNull = (dataObj) => {
     }
     return dataObj
 }
+

@@ -7,7 +7,7 @@ export interface ArrayUtils {
 
 export interface FormatOptions {
     date : string | Date;
-    type ?: string | number;
+    type ?: boolean | string | number;
     regEx ?: boolean; 
     regStr ?: string;
     format ?: number;
@@ -25,7 +25,7 @@ export declare function addDays(date : Date, days : number): string | number;
 export declare function configDateTH(): object;
 export declare function formatDateAPI(option : FormatOptions): string;
 export declare function formatDateTH(option : FormatOptions): string;
-export declare function formatDateAPI(option : FormatOptions): string;
+export declare function formatDateSession(option : FormatOptions): string;
 export declare function getCurYearTH(): string | number;
 export declare function getDayData(value : string, key ?: string, LOCAL ?: string): object;
 export declare function getDayList(LOCAL ?: string): object;

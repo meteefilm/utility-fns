@@ -120,7 +120,7 @@ const mainConvertDate = (date = "", time = false, format = 0) => {
       if (time === true) {
         return day + " " + _data[1].substring(0, _data[1].indexOf("."));
       } else {
-        return _data[0];
+        return day;
       }
     }
   }
@@ -311,34 +311,33 @@ module.exports.formatDateAPI = ({
   }
   return data;
 };
-module.exports.formatDateTH = ({ date = "",format = false }) => {
+module.exports.formatDateTH = ({ date = "",type = false }) => {
   if (date && NullString(date) !== "" && date !== "null") {
     let cur_date = new Date(date);
-    if (isValidDate(cur_date)) {
-      let timezoneOffset = cur_date.getTimezoneOffset() / 60;
-      cur_date.setHours(cur_date.getHours() - timezoneOffset);
-      cur_date = cur_date.toISOString().replace("T", " ").replace("Z", "");
+    let timezoneOffset = cur_date.getTimezoneOffset() / 60;
+    cur_date.setHours(cur_date.getHours() - timezoneOffset);
+    cur_date = cur_date.toISOString().replace("T", " ").replace("Z", "");
 
-      let _data = cur_date.split(" ");
-      let _inDay = _data[0].split("-");
+    let _data = cur_date.split(" ");
+    let _inDay = _data[0].split("-");
 
-      if (format === true) {
-        return _inDay[2] +"/" +_inDay[1] +"/" +(parseInt(_inDay[0]) + 543) +" " +_data[1].substring(0, _data[1].indexOf("."));
-      } else {
+    if (type === true) {
+        return _inDay[2] + "/" + _inDay[1] + "/" + (parseInt(_inDay[0]) + 543) + " " + _data[1].substring(0, _data[1].indexOf("."));
+    } else {
         return _inDay[2] + "/" + _inDay[1] + "/" + (parseInt(_inDay[0]) + 543);
-      }
     }
-  }
-  return date;
+}
+
+return date;
 };
 
-module.exports.formatDateSession = ({date = "", format=false}) => {
+module.exports.formatDateSession = ({date = "", type=false}) => {
   let data = "";
   if (date !== undefined && date !== null) {
-      if (format === true) {
-          data = mainConvertDate(date, isTime).replaceAll("-", "").replaceAll(":", "");
+      if (type === true) {
+          data = mainConvertDate(date, type).replaceAll("-", "").replaceAll(":", "");
       } else {
-          data = mainConvertDate(date, isTime).replaceAll("-", "");
+          data = mainConvertDate(date, type).replaceAll("-", "");
       }
   }
   return data;
