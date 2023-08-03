@@ -51,8 +51,7 @@ export declare function repNET(value : string): string;
 //** Convert **/
 export declare function convertNumber(data : number | string | boolean ): object;
 export declare function convertString(data : number | string ): string;
-export declare function convertDate(data : number | string ): string;
-
+export declare function convertDate(data : string ): object;
 
 //** Store */
 export declare function storeCDI(store : any, search : object): object;

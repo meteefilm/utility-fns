@@ -22,3 +22,15 @@ module.exports.convertString = (data="") => {
         return ""
     }
 }
+
+module.exports.convertDate = (data="") => { 
+    if(data !== undefined && data !== null){
+        try{
+            return new Date(data)
+        }catch (e){
+            return ""
+        }
+    }else{
+        return ""
+    }
+}

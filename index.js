@@ -19,6 +19,7 @@ module.exports.dnsList = ArrayListUtil.dnsList;
 const ConvertUtil = require('./src/ConvertUtil');
 module.exports.convertNumber = ConvertUtil.convertNumber;
 module.exports.convertString = ConvertUtil.convertString;
+module.exports.convertDate = ConvertUtil.convertDate;
 
 /** Replace **/
 const ReplaceUtil = require('./src/ReplaceUtil');
