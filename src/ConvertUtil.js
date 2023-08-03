@@ -1,5 +1,10 @@
+'use strict';
+
+const NullUtil = require('./NullUtil')
+
+
 module.exports.convertNumber = (data="") => { 
-    if(NullString(data) !== ""){
+    if(NullUtil.NullString(data) !== ""){
         if(typeof data === "boolean"){
             return data?1:0
         }else if(typeof data === "string"){
@@ -11,7 +16,7 @@ module.exports.convertNumber = (data="") => {
 }
 
 module.exports.convertString = (data="") => { 
-    if(NullString(data) !== ""){
+    if(data !== undefined && data !== null){
         return ""+data
     }else{
         return ""

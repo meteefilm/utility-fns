@@ -25,6 +25,8 @@ const ReplaceUtil = require('./src/ReplaceUtil');
 module.exports.replaceDataToKey = ReplaceUtil.replaceDataToKey;
 module.exports.replaceNoENtoTH = ReplaceUtil.replaceNoENtoTH;
 module.exports.replaceNull = ReplaceUtil.replaceNull;
+module.exports.repDTK = ReplaceUtil.replaceDataToKey;
+module.exports.repNET = ReplaceUtil.replaceNoENtoTH;
 
 /** Replace **/
 const TextUtil = require('./src/TextUtil');

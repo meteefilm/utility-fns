@@ -1,6 +1,6 @@
 "use strict";
 
-const { indexOfMsList } = require("./ArrayListUtil");
+const { indexOfList } = require("./ArrayListUtil");
 const { NullString } = require("./NullUtil");
 
 const LOCAL_CONFIG = {
@@ -46,8 +46,8 @@ const LOCAL_CONFIG = {
       "พ.ย.",
       "ธ.ค.",
     ],
-    today: "Hoy",
-    clear: "Limpiar",
+    today: "วันนี้",
+    clear: "ล้าง",
     dateFormat: "dd/mm/yyyy",
     weekHeader: "Sm",
   },
@@ -226,6 +226,7 @@ module.exports.getYearList = (start = 0, end = 0, LOCAL = "TH") => {
       value: i,
       revalue: _start > 2500 ? i - 543 : i + 543,
       label: i,
+    
     });
   }
 
@@ -238,12 +239,13 @@ module.exports.getYearList = (start = 0, end = 0, LOCAL = "TH") => {
  * ! Month
  * ! Current Thai year
  */
-module.exports.getDayData = (value = "", key = "label", LOCAL = "TH") => {
-  return indexOfMsList(this.getDayList(LOCAL), value, "value", key);
+module.exports.getDayData = (value = "", key = "label", name = "value", LOCAL = "TH") => {
+  return indexOfList(this.getDayList(LOCAL), value, key, name);
 };
 
-module.exports.getMonthData = (value = "", key = "label", LOCAL = "TH") => {
-  return indexOfMsList(this.getMonthList(LOCAL), value, "value", key);
+
+module.exports.getMonthData = (value = "", key = "label", name = "value", LOCAL = "TH") => {
+  return indexOfList(this.getMonthList(LOCAL), value, key, name);
 };
 
 module.exports.getCurYearTH = () => {
@@ -264,7 +266,7 @@ module.exports.addDays = (date, days = 1) => {
 
 module.exports.formatDateAPI = ({
   date = "",
-  type,
+  type = true,
   regEx = true,
   regStr = "-",
   format = 0,
@@ -273,7 +275,7 @@ module.exports.formatDateAPI = ({
    * type Formate
    * dateForm => 2,from,f
    * dateTo => 3,to,t
-   * not show time => 0,false
+   * not show time => 0,falseformatDateTH
    * normal : true,1,"",undefine, unsent
    */
   let data = "";
@@ -300,6 +302,8 @@ module.exports.formatDateAPI = ({
       default:
         data = mainConvertDate(data, true, format);
     }
+  }else{
+    data = ""
   }
 
   if (regEx === false) {

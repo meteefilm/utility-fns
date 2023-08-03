@@ -7,7 +7,7 @@ export interface ArrayUtils {
 
 export interface FormatOptions {
     date : string | Date;
-    type ?: boolean | string | number;
+    type ?: boolean | string | number ;
     regEx ?: boolean; 
     regStr ?: string;
     format ?: number;
@@ -27,9 +27,9 @@ export declare function formatDateAPI(option : FormatOptions): string;
 export declare function formatDateTH(option : FormatOptions): string;
 export declare function formatDateSession(option : FormatOptions): string;
 export declare function getCurYearTH(): string | number;
-export declare function getDayData(value : string, key ?: string, LOCAL ?: string): object;
+export declare function getDayData(value : string, key ?: string, name?: string , LOCAL ?: string): object;
 export declare function getDayList(LOCAL ?: string): object;
-export declare function getMonthData(value : string, key ?: string, LOCAL ?: string): object;
+export declare function getMonthData(value : string, key ?: string, name?: string , LOCAL ?: string): object;
 export declare function getMonthList(LOCAL ?: string): object;
 export declare function getYearList(start ?: number, end ?: number, LOCAL ?: string): object;
 
@@ -45,6 +45,14 @@ export declare function ZeroToNull(value : any): string;
 export declare function replaceDataToKey(dataObj : object,keyObj : object): object;
 export declare function replaceNoENtoTH(value : string): string;
 export declare function replaceNull(dataObj : object): object;
+export declare function repDTK(dataObj : object,keyObj : object): object;
+export declare function repNET(value : string): string;
+
+//** Convert **/
+export declare function convertNumber(data : number | string | boolean ): object;
+export declare function convertString(data : number | string ): string;
+export declare function convertDate(data : number | string ): string;
+
 
 //** Store */
 export declare function storeCDI(store : any, search : object): object;
