@@ -65,6 +65,15 @@ module.exports.getMonthData = DateUtil.getMonthData;
 module.exports.getMonthList = DateUtil.getMonthList;
 module.exports.getYearList = DateUtil.getYearList;
 
+/** ConvertUtil **/
+const TreeUtil = require('./src/TreeUtil');
+module.exports.convertListToTree = TreeUtil.convertListToTree;
+module.exports.findeTreeKey = TreeUtil.findeTreeKey;
+module.exports.generateTreeKey = TreeUtil.generateTreeKey;
+module.exports.onRenderSelectNode = TreeUtil.onRenderSelectNode;
+module.exports.setKeyTree = TreeUtil.setKeyTree;
+
+
 // 'use strict';
 
 // module.exports = require('./src/ArrayListUtil'); /** Array **/

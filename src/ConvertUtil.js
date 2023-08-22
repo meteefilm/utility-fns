@@ -24,7 +24,7 @@ module.exports.convertString = (data="") => {
 }
 
 module.exports.convertDate = (data="") => { 
-    if(data !== undefined && data !== null){
+    if(data !== undefined && data !== null && data !== ""){
         try{
             return new Date(data)
         }catch (e){

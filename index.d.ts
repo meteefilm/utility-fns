@@ -72,6 +72,13 @@ export declare function validateDateSF(obj : object ,startId : string, endId : s
 export declare function validateCitizenId(id :string | number): boolean;
 
 
+export declare function convertListToTree(list : object , keyLev : string ,keyCtl : string, keyCur : string ): object;
+export declare function findeTreeKey(list : object ,key : string  ): object;
+export declare function generateTreeKey(list : object ,val : any  ,condition ?: string  ,key ?: string   ): any;
+export declare function onRenderSelectNode(obj : object , node : object,tree : object): object;
+export declare function setKeyTree(keyData: object ,key : string,type ?: number ): string;
+
+
 
 
 
