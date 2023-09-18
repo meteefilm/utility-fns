@@ -1,6 +1,6 @@
 'use strict';
 
-const RandomText = require('./TextUtil');
+const NullUtil = require('./NullUtil');
 
 let randomKey = "";
 
@@ -27,8 +27,8 @@ let randomKey = "";
 // };
 
 module.exports.validateDateSF = (obj,startId, endId,report=false) => {  
-    if(obj && NullString(startId) !== "" && NullString(endId) !== ""  ){
-        if(NullString(obj[startId]) !== "" && NullString(obj[endId]) === "" ){
+    if(obj && NullUtil.NullString(startId) !== "" && NullUtil.NullString(endId) !== ""  ){
+        if(NullUtil.NullString(obj[startId]) !== "" && NullUtil.NullString(obj[endId]) === "" ){
             obj= {
                 ...obj,
                 [endId] : obj[startId]
@@ -37,7 +37,7 @@ module.exports.validateDateSF = (obj,startId, endId,report=false) => {
 
         if(report){
             let disabled = true
-            if(NullString(obj[startId]) !== "" && NullString(obj[endId]) !== "" ){
+            if(NullUtil.NullString(obj[startId]) !== "" && NullUtil.NullString(obj[endId]) !== "" ){
                 disabled = false
             }
 

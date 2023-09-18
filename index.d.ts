@@ -23,6 +23,8 @@ export declare function dnsList(select : number | [] , dataList : []): object;
 //** Date */
 export declare function addDays(date : Date, days : number): string | number;
 export declare function configDateTH(): object;
+export declare function fmd(option : FormatOptions): string;
+export declare function formatDate(option : FormatOptions): string;
 export declare function formatDateAPI(option : FormatOptions): string;
 export declare function formatDateTH(option : FormatOptions): string;
 export declare function formatDateSession(option : FormatOptions): string;
@@ -34,6 +36,7 @@ export declare function getMonthList(LOCAL ?: string): object;
 export declare function getYearList(start ?: number, end ?: number, LOCAL ?: string): object;
 
 //** Null **/
+export declare function NullArray(value : any): object;
 export declare function NullInt(value : any): number;
 export declare function NullPicture(value : any): string;
 export declare function NullSelect(value : any): string;
@@ -67,13 +70,22 @@ export declare function storeSDO(state : any, action : any , keyObj : string ): 
 export declare function NumberFormat(value : number,float ?: boolean ): string;
 export declare function RandomText(length : number): string;
 
+//** generate **/
+export declare function ranRGB(): string;
+export declare function randomRGB(): string;
+export declare function ranRGBA(): string;
+export declare function randomRGBA(): string;
+
 //** validate **/
 export declare function validateDateSF(obj : object ,startId : string, endId : string, report ?: boolean): string;
 export declare function validateCitizenId(id :string | number): boolean;
 
-
+//** treeData **/
+export declare function convertLTT(list : object , keyLev : string ,keyCtl : string, keyCur : string ): object;
 export declare function convertListToTree(list : object , keyLev : string ,keyCtl : string, keyCur : string ): object;
-export declare function findeTreeKey(list : object ,key : string  ): object;
+export declare function findTK(list : object ,val : any, id ?: string, key?: string  ): object;
+export declare function findTreeKey(list : object ,val : any, id ?: string, key?: string  ): object;
+export declare function genTK(list : object ,val : any  ,condition ?: string  ,key ?: string   ): any;
 export declare function generateTreeKey(list : object ,val : any  ,condition ?: string  ,key ?: string   ): any;
 export declare function onRenderSelectNode(obj : object , node : object,tree : object): object;
 export declare function setKeyTree(keyData: object ,key : string,type ?: number ): string;

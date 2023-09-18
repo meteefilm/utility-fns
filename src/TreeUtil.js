@@ -20,10 +20,8 @@ module.exports.convertListToTree = (list, keyLev="" ,keyCtl="", keyCur = "") => 
         for(let min = minLev; min <= maxLev ;min++){
             let filterObj = list.filter((item)=>item[keyLev]===min)
             newList.push(filterObj)
-        }  
-        
+        }
         for(let max = maxLev; max > minLev ;max--){
-    
             let object = newList[max - minLev-1]
             newList[max - minLev].forEach((main)=>{
                 let findIndex = object.findIndex((item)=>item[keyCur]=== main[keyCtl])
@@ -39,14 +37,11 @@ module.exports.convertListToTree = (list, keyLev="" ,keyCtl="", keyCur = "") => 
                     newList[max - minLev-1].push(main)
                 }
             })
-    
             newList[max - minLev-1] = object
         }
-        
         if(newList.length > 0){
             list = this.generateTreeKey(newList[0])
         }
-        
     }
     return list;
 
@@ -113,7 +108,7 @@ module.exports.generateTreeKey = (list,key="") => {
  * @param [condition=code] - the key to search for
  * @param [key=key] - the key you want to find
  */
-module.exports.findeTreeKey = (list,val,condition = "code",key="key") => { 
+module.exports.findTreeKey = (list,val,condition = "id",key="key") => { 
     var i;
     var result = null;
     if(list && list.length > 0){
@@ -121,7 +116,7 @@ module.exports.findeTreeKey = (list,val,condition = "code",key="key") => {
             if(list[i][condition]=== val){
                 return key === "object"?list[i]:list[i][key]
             }else if(list[i].children !== undefined){
-                result = this.findeTreeKey(list[i].children, val,condition,key);
+                result = this.findTreeKey(list[i].children, val,condition,key);
             }
         }
     }
@@ -144,7 +139,7 @@ module.exports.setKeyTree = (keyData,key,type=1) => {
 
 module.exports.onRenderSelectNode = (obj, node,tree) => { 
     if(obj.level > 1){
-        let objTree = this.findeTreeKey(tree,obj.parentKey, "key","object");
+        let objTree = this.findTreeKey(tree,obj.parentKey, "key","object");
         if(objTree && objTree.children){
             let checkNode = objTree.children.every((e)=>{
                 // console.log('node[e.key] !== undefined ',node[e.key] !== undefined);

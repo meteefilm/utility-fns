@@ -9,8 +9,10 @@ npm install utility-fns
 - **Null** 
 - **Replace** 
 - **Text**
+- **Tree**
 - **Validate Input**
 - **Store**
+- **Generate**
 
 ## Example 
 **Date Function**
@@ -105,13 +107,13 @@ FormatOptions {
 }
 
 console.log(formatDateTH({ date : new Date() })) //return 03/08/2566 07:30:10
-console.log(formatDateAPI({ date : new Date(), type : false })) //return 03/08/2566
-console.log(formatDateAPI({ date : "2023-01-25" })) //return 25/01/2566 07:30:10
+console.log(formatDate({ date : new Date(), type : false })) //return 03/08/2566
+console.log(formatDate({ date : "2023-01-25" })) //return 25/01/2566 07:30:10
 
 ```
 
 ```js
-import {formatDateAPI} from 'utility-fns';
+import {formatDate} from 'utility-fns';
 
 FormatOptions {
     date : string | Date;
@@ -121,11 +123,11 @@ FormatOptions {
     format ?: number;
 }
 
-console.log(formatDateAPI({ date : new Date() })) //return 2023-08-03 07:30:10
-console.log(formatDateAPI({ date : new Date(), type : false })) //return 2023-08-03
-console.log(formatDateAPI({ date : new Date(), format :1 })) //return 03-08-2023 07:30:10
-console.log(formatDateAPI({ date : new Date(), format :1 , regStr : "/" })) //return 03/08/2023 07:30:10
-console.log(formatDateAPI({ date : new Date() , regEx : false })) //return 20230803 073010
+console.log(formatDate({ date : new Date() })) //return 2023-08-03 07:30:10
+console.log(formatDate({ date : new Date(), type : false })) //return 2023-08-03
+console.log(formatDate({ date : new Date(), format :1 })) //return 03-08-2023 07:30:10
+console.log(formatDate({ date : new Date(), format :1 , regStr : "/" })) //return 03/08/2023 07:30:10
+console.log(formatDate({ date : new Date() , regEx : false })) //return 20230803 073010
 
 ```
 
@@ -145,10 +147,11 @@ console.log(formatDateAPI({ date : new Date() , regEx : false })) //return 20230
 
 **Null Function**
 ```js
-import {NullString,NullInt,ZeroToNull,NullToPoint} from 'utility-fns';
-
+import {NullString,NullInt,ZeroToNull,NullToPoint,NullArray} from 'utility-fns';
+//null undefined
 console.log(NullString(null));  //  return ''
 console.log(NullInt(null));     //  return 0
+console.log(NullArray(null));     //  return []
 console.log(ZeroToNull(0));     //  return ''
 console.log(NullToPoint(null)); //  return '-'
 ```
@@ -165,6 +168,15 @@ console.log(NumberFormat(1234,false)); //1234
 
 ```
 
+**Generate Function**
+```js
+import {randomRGB,randomRGBA} from 'utility-fns';
+
+console.log(randomRGB()); // rgba(3, 189, 234)
+console.log(randomRGBA()); // rgba(3, 189, 234, 0.2)
+
+```
+
 **Replace Function**
 ```js
 import {replaceNull,replaceNoENtoTH,repNET,replaceDataToKey,repDTK} from 'utility-fns';
@@ -178,5 +190,153 @@ console.log(repNET(123)); //๑๒๓
 console.log(replaceNull(data)); //{ name : "", surname :"", age : "" }
 console.log(replaceDataToKey(data,key)); //{  name : "test" , surname : "test", age : 0 , check : true }
 console.log(repDTK(data,key)); //{  name : "test" , surname : "test", age : 0 , check : true }
+
+```
+
+**Tree Function**
+```js
+import {convertListToTree,findTreeKey} from 'utility-fns';
+
+let list = [
+    { id : 'science', label : 'science' , ctlId : '', level : 1 },
+    { id : 'it', label : 'it' , ctlId : '', level : 1 },
+    { id : 'physics', label : 'Physics' , ctlId : 'science', level : 2 },
+    { id : 'chemistry', label : 'Chemistry' , ctlId : 'science', level : 2 },
+    { id : 'biology', label : 'Biology' , ctlId : 'science', level : 2 },
+    { id : 'programming', label : 'Programming' , ctlId : 'it', level : 2 },
+    { id : 'database', label : 'Database' , ctlId : 'it', level : 2 },
+    { id : 'mysql', label : 'MySql' , ctlId : 'database', level : 3 },
+    { id : 'oracle', label : 'Oracle' , ctlId : 'database', level : 3 },
+];
+
+list = convertListToTree(list,"level" ,"ctlId", "id")
+console.log(list); 
+
+console.log("findeTreeKey ",findeTreeKey(list,'database','id')) //2-2
+console.log("findeTreeKey ", findeTreeKey(list,'2-2-1','key','id')) //MySql
+
+result convert : [
+    {
+        "id": "science",
+        "label": "science",
+        "ctlId": "",
+        "level": 1,
+        "children": [...]
+,
+        "key": "1",
+        "data": {...}
+    },
+    {
+        "id": "it",
+        "label": "it",
+        "ctlId": "",
+        "level": 1,
+        "children": [
+            {
+                "id": "programming",
+                "label": "Programming",
+                "ctlId": "it",
+                "level": 2,
+                "key": "2-1",
+                "data": {
+                    "id": "programming",
+                    "label": "Programming",
+                    "ctlId": "it",
+                    "level": 2
+                }
+            },
+            {
+                "id": "database",
+                "label": "Database",
+                "ctlId": "it",
+                "level": 2,
+                "children": [
+                    {
+                        "id": "mysql",
+                        "label": "MySql",
+                        "ctlId": "database",
+                        "level": 3,
+                        "data": {
+                            "id": "mysql",
+                            "label": "MySql",
+                            "ctlId": "database",
+                            "level": 3
+                        },
+                        "key": "2-2-1"
+                    },
+                    {
+                        "id": "oracle",
+                        "label": "Oracle",
+                        "ctlId": "database",
+                        "level": 3,
+                        "data": {
+                            "id": "oracle",
+                            "label": "Oracle",
+                            "ctlId": "database",
+                            "level": 3
+                        },
+                        "key": "2-2-2"
+                    }
+                ],
+                "key": "2-2",
+                "data": {
+                    "id": "database",
+                    "label": "Database",
+                    "ctlId": "it",
+                    "level": 2,
+                    "children": [
+                        {
+                            "id": "mysql",
+                            "label": "MySql",
+                            "ctlId": "database",
+                            "level": 3
+                        },
+                        {
+                            "id": "oracle",
+                            "label": "Oracle",
+                            "ctlId": "database",
+                            "level": 3
+                        }
+                    ]
+                }
+            }
+        ],
+        "key": "2",
+        "data": {
+            "id": "it",
+            "label": "it",
+            "ctlId": "",
+            "level": 1,
+            "children": [
+                {
+                    "id": "programming",
+                    "label": "Programming",
+                    "ctlId": "it",
+                    "level": 2
+                },
+                {
+                    "id": "database",
+                    "label": "Database",
+                    "ctlId": "it",
+                    "level": 2,
+                    "children": [
+                        {
+                            "id": "mysql",
+                            "label": "MySql",
+                            "ctlId": "database",
+                            "level": 3
+                        },
+                        {
+                            "id": "oracle",
+                            "label": "Oracle",
+                            "ctlId": "database",
+                            "level": 3
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+]
 
 ```
