@@ -1,6 +1,6 @@
 {
   "name": "utility-fns",
-  "version": "1.6.0",
+  "version": "1.6.2",
   "description": "custom utillies for react",
   "main": "./index.js",
   "types": "./index.d.ts",
@@ -14,7 +14,9 @@
   "keywords": [
     "utilities",
     "utility",
-    "functions"
+    "functions",
+    "date",
+    "tree list"
   ],
   "author": "Metee Khumchat",
   "license": "ISC",
