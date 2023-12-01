@@ -1,6 +1,6 @@
 "use strict";
 
-const { indexOfList } = require("./ArrayListUtil");
+const { indexOfList } = require("./ArrayUtil");
 const { NullString } = require("./NullUtil");
 
 const LOCAL_CONFIG = {

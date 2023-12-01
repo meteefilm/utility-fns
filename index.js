@@ -9,12 +9,12 @@ exports.NullToPoint = NullUtil.NullToPoint;
 exports.NullArray = NullUtil.NullArray;
 
 //** Array **/
-const ArrayListUtil = require('./src/ArrayListUtil');
-module.exports.indexOfMax = ArrayListUtil.indexOfMax;
-module.exports.indexOfList = ArrayListUtil.indexOfList;
-module.exports.objectOfList = ArrayListUtil.objectOfList;
-module.exports.sortIndexOfList = ArrayListUtil.sortIndexOfList;
-module.exports.dnsList = ArrayListUtil.dnsList;
+const ArrayUtil = require('./src/ArrayUtil');
+module.exports.indexOfMax = ArrayUtil.indexOfMax;
+module.exports.indexOfList = ArrayUtil.indexOfList;
+module.exports.objectOfList = ArrayUtil.objectOfList;
+module.exports.sortIndexOfList = ArrayUtil.sortIndexOfList;
+module.exports.dnsList = ArrayUtil.dnsList;
 
 /** ConvertUtil **/
 const ConvertUtil = require('./src/ConvertUtil');
@@ -85,7 +85,6 @@ module.exports.randomRGB = GenerateUtil.randomRGB;
 module.exports.ranRGBA = GenerateUtil.randomRGBA;
 module.exports.randomRGBA = GenerateUtil.randomRGBA;
 
-// module.exports = require('./src/ArrayListUtil'); /** Array **/
 // module.exports = require('./src/DateUtil'); /** Date **/
 // module.exports = require('./src/NullUtil'); /** Null **/
 // module.exports = require('./src/ReplaceUtil'); /** Replace **/
