@@ -94,6 +94,13 @@ const LOCAL_CONFIG = {
   },
 };
 
+const initData = {
+  date : new Date(),
+  type : true,
+  regEx : true,
+  regStr : "-",
+}
+
 /**
  * Main Convert Dete Fns
  */
@@ -239,13 +246,13 @@ module.exports.getYearList = (start = 0, end = 0, LOCAL = "TH") => {
  * ! Month
  * ! Current Thai year
  */
-module.exports.getDayData = (value = "", key = "label", name = "value", LOCAL = "TH") => {
-  return indexOfList(this.getDayList(LOCAL), value, key, name);
+module.exports.getDayData = (value = "", key = "value", name = "label", LOCAL = "TH") => {
+  return indexOfList({arr : this.getDayList(LOCAL),code : value,key ,name })
 };
 
 
-module.exports.getMonthData = (value = "", key = "label", name = "value", LOCAL = "TH") => {
-  return indexOfList(this.getMonthList(LOCAL), value, key, name);
+module.exports.getMonthData = (value = "", key = "value", name = "label", LOCAL = "TH") => {
+  return indexOfList({arr : this.getMonthList(LOCAL),code : value,key ,name })
 };
 
 module.exports.getCurYearTH = () => {
@@ -270,7 +277,7 @@ module.exports.formatDateAPI = ({
   regEx = true,
   regStr = "-",
   format = 0,
-}) => {
+}=initData) => {
   /**
    * type Formate
    * dateForm => 2,from,f
@@ -315,7 +322,7 @@ module.exports.formatDateAPI = ({
   }
   return data;
 };
-module.exports.formatDateTH = ({ date = "",type = false }) => {
+module.exports.formatDateTH = ({ date = "",type = false }={...initData,type : false}) => {
   if (date && NullString(date) !== "" && date !== "null") {
     let cur_date = new Date(date);
     let timezoneOffset = cur_date.getTimezoneOffset() / 60;
@@ -335,7 +342,7 @@ module.exports.formatDateTH = ({ date = "",type = false }) => {
 return date;
 };
 
-module.exports.formatDateSession = ({date = "", type=false}) => {
+module.exports.formatDateSession = ({date = "", type=false}={...initData,type : false}) => {
   let data = "";
   if (date !== undefined && date !== null) {
       if (type === true) {

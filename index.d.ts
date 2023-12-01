@@ -1,7 +1,7 @@
 export interface ArrayUtils {
     arr : object;
-    key : string;
-    code ?: string;
+    code : string;
+    key ?: string;
     name ?: string; 
 }
 

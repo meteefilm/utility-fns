@@ -22,18 +22,3 @@ module.exports.NumberFormat = (value, float = true) => {
     }
     return newData;
 };
-
-// module.exports.messagesWarning = (label="การทำรายการ") => { 
-//     return (
-//         <>
-//             <span>
-//                 <b>กดปุ่มยืนยัน</b> เพื่อทำการยืนยัน{label}
-//             </span>
-//             <br />
-//             <span className="ml-2">
-//                 หรือ <b>กดปุ่มยกเลิก</b> เพื่อยกเลิกการทำรายการ
-//             </span>
-//         </>
-//     )
-
-// }
