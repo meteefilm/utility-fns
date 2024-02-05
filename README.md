@@ -181,21 +181,21 @@ console.log(randomRGBA()); // rgba(3, 189, 234, 0.2)
 ```js
 import {replaceNull,replaceNoENtoTH,repNET,replaceDataToKey,repDTK} from 'utility-fns';
 
-const key  = { name : "" , surname : "test", age : 0 , check : true }
-let data = { name : "test", surname : null, age : null }
+const key  = { name : "" , surname : "test", age : 0 , check : true, list : [], obj : {} }
+let data = { name : "test", surname : null, age : null  }
 
 console.log(replaceNoENtoTH(123)); //๑๒๓
 console.log(repNET(123)); //๑๒๓
 
 console.log(replaceNull(data)); //{ name : "", surname :"", age : "" }
 console.log(replaceDataToKey(data,key)); //{  name : "test" , surname : "test", age : 0 , check : true }
-console.log(repDTK(data,key)); //{  name : "test" , surname : "test", age : 0 , check : true }
+console.log(repDTK(data,key)); //{  name : "test" , surname : "test", age : 0 , check : true, list : [], obj : {} }
 
 ```
 
 **Tree Function**
 ```js
-import {convertListToTree,findTreeKey} from 'utility-fns';
+import {convertListToTree,findTreeKey,changeKeyTree} from 'utility-fns';
 
 let list = [
     { id : 'science', label : 'science' , ctlId : '', level : 1 },

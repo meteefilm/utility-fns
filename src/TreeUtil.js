@@ -71,7 +71,6 @@ module.exports.generateTreeKey = (list,key="") => {
                         children : this.generateTreeKey(item.children,keySub)
                     }
                 })
-                
                 return {
                     ...main,
                     key : key !== ""?(key+"-"+(index+1)):(""+(index+1)),
@@ -79,14 +78,12 @@ module.exports.generateTreeKey = (list,key="") => {
                     children : newChildren
                 }
             }else{
-                
                 return {
                     ...main,
                     data : main,
                     key : key !== ""?(key+"-"+(index+1)):(""+(index+1))
                 }
             }
-            
         })
 
     }
@@ -134,7 +131,6 @@ module.exports.setKeyTree = (keyData,key,type=1) => {
         }
     }
     return keyData
-    
 }
 
 module.exports.onRenderSelectNode = (obj, node,tree) => { 
@@ -166,4 +162,21 @@ module.exports.onRenderSelectNode = (obj, node,tree) => {
         }
     }
     return node 
+}
+
+module.exports.changeKeyTree = (list,oldKey,newKey) => {
+    list = list.map((e) => {
+        if(e.children && NullUtil.NullArray(e.children).length > 0){
+            let children = this.changeKeyTree(e.children,oldKey,newKey)
+            let childrenName = oldKey === "children"?newKey:"children"
+            e ={
+                ...e,
+                [newKey] : e[oldKey],
+                [childrenName] : children
+            }
+            delete e[oldKey]
+        }
+        return e
+    })
+    return list
 }

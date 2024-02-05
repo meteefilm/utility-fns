@@ -77,6 +77,7 @@ module.exports.geneTK = TreeUtil.generateTreeKey;
 module.exports.generateTreeKey = TreeUtil.generateTreeKey;
 module.exports.onRenderSelectNode = TreeUtil.onRenderSelectNode;
 module.exports.setKeyTree = TreeUtil.setKeyTree;
+module.exports.changeKeyTree = TreeUtil.changeKeyTree;
 
 //** generate **/
 const GenerateUtil = require('./src/GenerateUtil');

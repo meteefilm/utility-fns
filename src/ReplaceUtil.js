@@ -20,6 +20,8 @@ module.exports.replaceDataToKey = (dataObj,keyObj) => {
     for(const key in newData){
         if(typeof newData[key]  === "number"){
             newData[key] = dataObj[key] && dataObj[key] !== null?ConvertUtil.convertNumber(dataObj[key]):newData[key]
+        }else if(dataObj[key] instanceof Object) {
+            newData[key] = dataObj[key] && dataObj[key] !== null?dataObj[key]:newData[key]
         }else if(dataObj[key] instanceof Date) {
             newData[key] = dataObj[key] && dataObj[key] !== null?DateUtil.formatDateAPI({ date : dataObj[key]}):newData[key]
         }else{

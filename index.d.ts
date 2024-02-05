@@ -89,6 +89,7 @@ export declare function genTK(list : object ,val : any  ,condition ?: string  ,k
 export declare function generateTreeKey(list : object ,val : any  ,condition ?: string  ,key ?: string   ): any;
 export declare function onRenderSelectNode(obj : object , node : object,tree : object): object;
 export declare function setKeyTree(keyData: object ,key : string,type ?: number ): string;
+export declare function changeKeyTree(list: object,oldKey: string,newKey: string ): object;
 
 
 
