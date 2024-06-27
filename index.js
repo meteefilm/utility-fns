@@ -14,7 +14,9 @@ module.exports.indexOfMax = ArrayUtil.indexOfMax;
 module.exports.indexOfList = ArrayUtil.indexOfList;
 module.exports.objectOfList = ArrayUtil.objectOfList;
 module.exports.sortIndexOfList = ArrayUtil.sortIndexOfList;
-module.exports.dnsList = ArrayUtil.dnsList;
+module.exports.orderList = ArrayUtil.orderList;
+module.exports.sortAndOrderList = ArrayUtil.sortAndOrderList;
+module.exports.SAOList = ArrayUtil.sortAndOrderList;
 
 /** ConvertUtil **/
 const ConvertUtil = require('./src/ConvertUtil');
@@ -34,6 +36,9 @@ module.exports.repNET = ReplaceUtil.replaceNoENtoTH;
 const TextUtil = require('./src/TextUtil');
 module.exports.NumberFormat = TextUtil.NumberFormat;
 module.exports.RandomText = TextUtil.RandomText;
+module.exports.RandomNumber = TextUtil.RandomNumber;
+module.exports.RT = TextUtil.RandomText;
+module.exports.RN = TextUtil.RandomNumber;
 
 //** ValidateUtil **/
 const ValidateUtil = require('./src/ValidateUtil');
@@ -78,6 +83,7 @@ module.exports.generateTreeKey = TreeUtil.generateTreeKey;
 module.exports.onRenderSelectNode = TreeUtil.onRenderSelectNode;
 module.exports.setKeyTree = TreeUtil.setKeyTree;
 module.exports.changeKeyTree = TreeUtil.changeKeyTree;
+module.exports.findTreeNode = TreeUtil.findTreeNode;
 
 //** generate **/
 const GenerateUtil = require('./src/GenerateUtil');

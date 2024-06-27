@@ -120,6 +120,19 @@ module.exports.findTreeKey = (list,val,condition = "id",key="key") => {
     return result;
 }
 
+module.exports.findTreeNode = (nodes, key) => {
+    for (let node of nodes) {
+        if (node.key === key) {
+            return node;
+        }
+        if (node.children) {
+            const found = findNodeByKey(node.children, key);
+            if (found) return found;
+        }
+    }
+    return null;
+};
+
 module.exports.setKeyTree = (keyData,key,type=1) => { 
     if(keyData && key ){
         return {

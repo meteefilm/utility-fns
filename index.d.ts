@@ -1,6 +1,6 @@
 export interface ArrayUtils {
     arr : object;
-    code : string;
+    code : string | number  ;
     key ?: string;
     name ?: string; 
 }
@@ -18,6 +18,9 @@ export declare function indexOfMax(obj : ArrayUtils): string | number;
 export declare function indexOfList(obj : ArrayUtils): any;
 export declare function objectOfList(obj : ArrayUtils): object;
 export declare function sortIndexOfList(obj : ArrayUtils): object;
+export declare function orderList(obj : ArrayUtils): object;
+export declare function sortAndOrderList(obj : ArrayUtils): object;
+export declare function SAOList(obj : ArrayUtils): object;
 export declare function dnsList(select : number | [] , dataList : []): object;
 
 //** Date */
@@ -69,6 +72,7 @@ export declare function storeSDO(state : any, action : any , keyObj : string ): 
 //** Text **/
 export declare function NumberFormat(value : number,float ?: boolean ): string;
 export declare function RandomText(length : number): string;
+export declare function RandomNumber(max : number ): string;
 
 //** generate **/
 export declare function ranRGB(): string;
@@ -90,7 +94,7 @@ export declare function generateTreeKey(list : object ,val : any  ,condition ?: 
 export declare function onRenderSelectNode(obj : object , node : object,tree : object): object;
 export declare function setKeyTree(keyData: object ,key : string,type ?: number ): string;
 export declare function changeKeyTree(list: object,oldKey: string,newKey: string ): object;
-
+export declare function findTreeNode(nodes: object,e: string): object;
 
 
 

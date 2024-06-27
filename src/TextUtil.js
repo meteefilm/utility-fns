@@ -10,6 +10,10 @@ module.exports.RandomText = (length = 10) => {
     return result;
 };
 
+module.exports.RandomNumber = (max = 10) => {
+    return Math.floor(Math.random() * (max + 1));
+};
+
 module.exports.NumberFormat = (value, float = true) => {
     let newData = value;
     if (value !== undefined && value !== "" && value !== null) {

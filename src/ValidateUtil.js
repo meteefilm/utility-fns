@@ -33,6 +33,11 @@ module.exports.validateDateSF = (obj,startId, endId,report=false) => {
                 ...obj,
                 [endId] : obj[startId]
             }
+        }else  if(NullUtil.NullString(obj[startId]) === "" && NullUtil.NullString(obj[endId]) !== "" ){
+            obj= {
+                ...obj,
+                [startId] : obj[endId]
+            }
         }
 
         if(report){

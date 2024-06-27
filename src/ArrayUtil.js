@@ -78,8 +78,6 @@ module.exports.sortIndexOfList = ({arr,key='index'}) => {
         })
     }
     return arr
- 
-    
 }
 
 //** Delete data and Sort List by index */
@@ -99,5 +97,35 @@ module.exports.dnsList = (selectList, dataList) => {
     }
     return dataList
 }
+
+module.exports.orderList = ({arr,key='index', code = 1}) => {
+    if(arr && arr.length > 0){
+        if(code === 1){
+            arr.sort((a, b) => a[key] - b[key]);
+        }else if(code === -1){
+            arr.sort((a, b) => b[key] - a[key]);
+        }
+    }
+    return arr
+}
+
+module.exports.sortAndOrderList = ({arr,key='index', code = 1}) => {
+    if(arr && arr.length > 0){
+        arr = arr.map((item,index)=>{
+            return {
+                ...item,
+                [key] : index+1
+            }
+        })
+
+        if(code === 1){
+            arr.sort((a, b) => a[key] - b[key]);
+        }else if(code === -1){
+            arr.sort((a, b) => b[key] - a[key]);
+        }
+    }
+    return arr
+}
+
 
 

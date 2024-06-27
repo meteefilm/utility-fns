@@ -1,4 +1,3 @@
-# See https://help.github.com/ignore-files/ for more about ignoring files.
 
 .sass-cache
 sassdoc
@@ -8,15 +7,6 @@ sassdoc
 /node_modules
 package-lock.json
 yarn.lock
-
-# testing
-/coverage
-
-# production
-/build
-dist
-/idea
-/.idea
 
 # misc
 .DS_Store
@@ -28,11 +18,3 @@ dist
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-/public/assets/layout/css/layout-*.css
-/public/assets/layout/css/layout-*.map
-/public/assets/layout/css/landing.css
-/public/assets/layout/css/landing.css.map
-/public/assets/theme/**/theme-*.css
-/public/assets/theme/**/theme-*.map
-/public/assets/sass/theme/designer

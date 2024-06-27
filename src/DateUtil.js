@@ -282,7 +282,7 @@ module.exports.formatDateAPI = ({
    * type Formate
    * dateForm => 2,from,f
    * dateTo => 3,to,t
-   * not show time => 0,falseformatDateTH
+   * not show time => 0,false formatDateTH
    * normal : true,1,"",undefine, unsent
    */
   let data = "";
@@ -302,19 +302,29 @@ module.exports.formatDateAPI = ({
         break;
       case false:
       case 0:
+      case "R":
         data = mainConvertDate(data, false, format);
         break;
       case 1:
       case true:
+      case "RT":
+      case "RTS":
       default:
         data = mainConvertDate(data, true, format);
     }
   }else{
     data = ""
   }
+  
+  if(["R","RT","RTS"].includes(type)){
+    regEx=false
+  }
 
-  if (regEx === false) {
+  if (regEx === false || type === "R") {
     data = data.replaceAll("-", "").replaceAll(":", "");
+    if(type === "RTS"){
+      data = data.replaceAll(" ", "");
+    }
   } else {
     if (regStr !== "-") {
       data = data.replaceAll("-", regStr);
