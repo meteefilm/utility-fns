@@ -39,7 +39,7 @@ export declare function getMonthList(LOCAL ?: string): object;
 export declare function getYearList(start ?: number, end ?: number, LOCAL ?: string): object;
 
 //** Null **/
-export declare function NullArray(value : any): object;
+export declare function NullArray(value : any): any;
 export declare function NullInt(value : any): number;
 export declare function NullPicture(value : any): string;
 export declare function NullSelect(value : any): string;
