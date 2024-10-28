@@ -1,5 +1,5 @@
 export interface ArrayUtils {
-    arr : object;
+    arr : any;
     code : string | number  ;
     key ?: string;
     name ?: string; 
@@ -17,7 +17,7 @@ export interface FormatOptions {
 export declare function indexOfMax(obj : ArrayUtils): string | number;
 export declare function indexOfList(obj : ArrayUtils): any;
 export declare function objectOfList(obj : ArrayUtils): object;
-export declare function sortIndexOfList(obj : ArrayUtils): object;
+export declare function sortIndexOfList(obj : ArrayUtils): any;
 export declare function orderList(obj : ArrayUtils): object;
 export declare function sortAndOrderList(obj : ArrayUtils): object;
 export declare function SAOList(obj : ArrayUtils): object;
