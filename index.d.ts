@@ -1,8 +1,14 @@
 export interface ArrayUtils {
     arr : any;
-    code : string | number  ;
+    code ?: string | number  ;
     key ?: string;
     name ?: string; 
+}
+
+export interface SortArrayUtils {
+    arr : any;
+    key ?: string;
+    sort ?: number;
 }
 
 export interface FormatOptions {
@@ -16,12 +22,12 @@ export interface FormatOptions {
 //** Array **/
 export declare function indexOfMax(obj : ArrayUtils): string | number;
 export declare function indexOfList(obj : ArrayUtils): any;
+export declare function findList(obj : ArrayUtils): any | string;
 export declare function objectOfList(obj : ArrayUtils): object;
 export declare function sortIndexOfList(obj : ArrayUtils): any;
-export declare function orderList(obj : ArrayUtils): object;
-export declare function sortAndOrderList(obj : ArrayUtils): object;
-export declare function SAOList(obj : ArrayUtils): object;
-export declare function dnsList(select : number | [] , dataList : []): object;
+export declare function sortList(obj : SortArrayUtils): any | [] | object;
+export declare function sortAndOrderList(obj : SortArrayUtils): any | [] | object;
+export declare function SAOList(obj : SortArrayUtils): any | [] | object;
 
 //** Date */
 export declare function addDays(date : Date, days : number): string | number;
@@ -31,6 +37,8 @@ export declare function formatDate(option : FormatOptions): string;
 export declare function formatDateAPI(option : FormatOptions): string;
 export declare function formatDateTH(option : FormatOptions): string;
 export declare function formatDateSession(option : FormatOptions): string;
+export declare function formatDateInt(option : FormatOptions): string;
+export declare function formatDI(option : FormatOptions): string;
 export declare function getCurYearTH(): string | number;
 export declare function getDayData(value : string, key ?: string, name?: string , LOCAL ?: string): object;
 export declare function getDayList(LOCAL ?: string): object;
@@ -58,6 +66,8 @@ export declare function repNET(value : string): string;
 export declare function convertNumber(data : number | string | boolean ): object;
 export declare function convertString(data : number | string ): string;
 export declare function convertDate(data : string ): object;
+export declare function convertDateInt(value: string | number, format?: "auto" | "th" | "en"): Date | string | "";
+export declare function convertDI(value: string | number, format?: "auto" | "th" | "en" ): Date | string | "";
 
 //** Store */
 export declare function storeCDI(store : any, search : object): object;

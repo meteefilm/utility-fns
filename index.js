@@ -12,9 +12,10 @@ exports.NullArray = NullUtil.NullArray;
 const ArrayUtil = require('./src/ArrayUtil');
 module.exports.indexOfMax = ArrayUtil.indexOfMax;
 module.exports.indexOfList = ArrayUtil.indexOfList;
+module.exports.findList = ArrayUtil.indexOfList;
 module.exports.objectOfList = ArrayUtil.objectOfList;
 module.exports.sortIndexOfList = ArrayUtil.sortIndexOfList;
-module.exports.orderList = ArrayUtil.orderList;
+module.exports.sortList = ArrayUtil.sortList;
 module.exports.sortAndOrderList = ArrayUtil.sortAndOrderList;
 module.exports.SAOList = ArrayUtil.sortAndOrderList;
 
@@ -23,6 +24,8 @@ const ConvertUtil = require('./src/ConvertUtil');
 module.exports.convertNumber = ConvertUtil.convertNumber;
 module.exports.convertString = ConvertUtil.convertString;
 module.exports.convertDate = ConvertUtil.convertDate;
+module.exports.convertDateInt = ConvertUtil.convertDateInt;
+module.exports.convertDI = ConvertUtil.convertDateInt;
 
 //** Replace **/
 const ReplaceUtil = require('./src/ReplaceUtil');
@@ -63,7 +66,9 @@ module.exports.configDateTH = DateUtil.configDateTH;
 module.exports.fmd = DateUtil.formatDateAPI;
 module.exports.formatDate = DateUtil.formatDateAPI;
 module.exports.formatDateAPI = DateUtil.formatDateAPI;
-module.exports.formatDateSession = DateUtil.formatDateSession;
+module.exports.formatDateSession = DateUtil.formatDateInt;
+module.exports.formatDateInt = DateUtil.formatDateInt;
+module.exports.formatDI = DateUtil.formatDateInt;
 module.exports.formatDateTH = DateUtil.formatDateTH;
 module.exports.getCurYearTH = DateUtil.getCurYearTH;
 module.exports.getDayData = DateUtil.getDayData;
