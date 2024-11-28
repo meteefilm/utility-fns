@@ -1,6 +1,6 @@
 {
   "name": "utility-fns",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "custom utillies for react",
   "main": "./index.js",
   "types": "./index.d.ts",
