@@ -35,7 +35,7 @@ module.exports.convertDate = (data = "") => {
     }
 }
 
-module.offsetYear = (year, format = "auto") => {
+module.exports.offsetYear = (year, format = "auto") => {
     try {
         const THRESHOLD_YEAR = 2500;
         if (format === "en") return year;
@@ -59,7 +59,7 @@ module.exports.convertDateInt = (value, format= "auto") => {
 
         let year = valueStr.substring(0, 4);
         let yearInt = Number(year) || 0;
-        yearInt = offsetYear(yearInt, format);
+        yearInt = this.offsetYear(yearInt, format);
 
         let month = valueStr.substring(4, 6);
         let monthInt = Number(month) || 0;
@@ -86,6 +86,7 @@ module.exports.convertDateInt = (value, format= "auto") => {
         if (isNaN(result.getTime())) return "";
         return result;
     } catch (err) {
+        console.error(err);
         return "";
     }
 };

@@ -11,7 +11,7 @@ npm install utility-fns
 - **Text**
 - **Tree**
 - **Validate Input**
-- **Store**
+- **Convert**
 - **Generate**
 
 ## Example 
@@ -112,6 +112,16 @@ console.log(formatDate({ date : "2023-01-25" })) //return 25/01/2566 07:30:10
 
 ```
 
+
+```js
+import {formatDateInt} from 'utility-fns';
+
+console.log(formatDateInt({ date : new Date() })) //return 20241128
+console.log(formatDateInt({ date : new Date(), type : true })) //return 20241128 101010
+
+```
+
+
 ```js
 import {formatDate} from 'utility-fns';
 
@@ -165,6 +175,14 @@ console.log(RandomText(5)); //B7sM
 
 console.log(NumberFormat(1234)); //1,234.00
 console.log(NumberFormat(1234,false)); //1234
+
+```
+
+**Convert Function**
+```js
+import {convertDateInt} from 'utility-fns';
+
+console.log(convertDateInt("20241128")); // 2024-08-02T17:00:00.000Z
 
 ```
 
