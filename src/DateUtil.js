@@ -357,7 +357,8 @@ module.exports.formatDateTHSession = ({ date = "", type = false, format = 0 } = 
     cur_date = cur_date.toISOString().replace("T", " ").replace("Z", "");
 
     let _data = cur_date.split(" ");
-    let _inDay = "", newDate = ""
+    let _inDay = _data[0].split("-");
+    let newDate = ""
     if (format === 1) {
       newDate += (parseInt(_inDay[0]) + 543) + _inDay[2] + _inDay[1]
     } else {
