@@ -349,6 +349,33 @@ module.exports.formatDateTH = ({ date = "", type = false } = { ...initData, type
   return date;
 };
 
+module.exports.formatDateTHSession = ({ date = "", type = false, format = 0 } = { ...initData, type: false }) => {
+  if (date && NullString(date) !== "" && date !== "null") {
+    let cur_date = new Date(date);
+    let timezoneOffset = cur_date.getTimezoneOffset() / 60;
+    cur_date.setHours(cur_date.getHours() - timezoneOffset);
+    cur_date = cur_date.toISOString().replace("T", " ").replace("Z", "");
+
+    let _data = cur_date.split(" ");
+    let _inDay = "", newDate = ""
+    if (format === 1) {
+      newDate += (parseInt(_inDay[0]) + 543) + _inDay[2] + _inDay[1]
+    } else {
+      newDate += _inDay[2] + _inDay[1] + (parseInt(_inDay[0]) + 543)
+
+    }
+    if (type === true) {
+      return newDate + " " + _data[1].substring(0, _data[1].indexOf("."));
+    } else {
+      return newDate;
+    }
+
+  }
+
+  return date;
+};
+
+
 module.exports.formatDateInt = ({ date = "", type = false } = { ...initData, type: false }) => {
   let data = "";
   if (date !== undefined && date !== null) {

@@ -39,6 +39,8 @@ export declare function formatDateTH(option : FormatOptions): string;
 export declare function formatDateSession(option : FormatOptions): string;
 export declare function formatDateInt(option : FormatOptions): string;
 export declare function formatDI(option : FormatOptions): string;
+export declare function formatDateTHSession(option : FormatOptions): string;
+export declare function formatDateTHS(option : FormatOptions): string;
 export declare function getCurYearTH(): string | number;
 export declare function getDayData(value : string, key ?: string, name?: string , LOCAL ?: string): object;
 export declare function getDayList(LOCAL ?: string): object;
