@@ -360,9 +360,9 @@ module.exports.formatDateTHSession = ({ date = "", type = false, format = 0 } = 
     let _inDay = _data[0].split("-");
     let newDate = ""
     if (format === 1) {
-      newDate += (parseInt(_inDay[0]) + 543) + _inDay[2] + _inDay[1]
+      newDate += (parseInt(_inDay[0]) + 543) + _inDay[1] + _inDay[2]
     } else {
-      newDate += _inDay[2] + _inDay[1] + (parseInt(_inDay[0]) + 543)
+      newDate += _inDay[1] + _inDay[2] + (parseInt(_inDay[0]) + 543)
 
     }
     if (type === true) {
