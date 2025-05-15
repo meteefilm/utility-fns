@@ -2,8 +2,7 @@
 
 const NullUtil = require('./NullUtil')
 
-
-module.exports.convertNumber = (data = "") => {
+const convertNumber = (data = "") => {
     if (NullUtil.NullString(data) !== "") {
         if (typeof data === "boolean") {
             return data ? 1 : 0
@@ -15,7 +14,7 @@ module.exports.convertNumber = (data = "") => {
     return 0;
 }
 
-module.exports.convertString = (data = "") => {
+const convertString = (data = "") => {
     if (data !== undefined && data !== null) {
         return "" + data
     } else {
@@ -23,7 +22,7 @@ module.exports.convertString = (data = "") => {
     }
 }
 
-module.exports.convertDate = (data = "") => {
+const convertDate = (data = "") => {
     if (data !== undefined && data !== null && data !== "") {
         try {
             return new Date(data)
@@ -35,7 +34,7 @@ module.exports.convertDate = (data = "") => {
     }
 }
 
-module.exports.offsetYear = (year, format = "auto") => {
+const offsetYear = (year, format = "auto") => {
     try {
         const THRESHOLD_YEAR = 2500;
         if (format === "en") return year;
@@ -48,7 +47,7 @@ module.exports.offsetYear = (year, format = "auto") => {
 };
 
 // value: unknown, format: "auto" | "th" | "en" = "auto"
-module.exports.convertDateInt = (value, format= "auto") => {
+const convertDateInt = (value, format= "auto") => {
     try {
         let valueInt = Number(value) || 0;
         if (valueInt < 0) return "";
@@ -59,7 +58,7 @@ module.exports.convertDateInt = (value, format= "auto") => {
 
         let year = valueStr.substring(0, 4);
         let yearInt = Number(year) || 0;
-        yearInt = this.offsetYear(yearInt, format);
+        yearInt = offsetYear(yearInt, format);
 
         let month = valueStr.substring(4, 6);
         let monthInt = Number(month) || 0;
@@ -90,3 +89,56 @@ module.exports.convertDateInt = (value, format= "auto") => {
         return "";
     }
 };
+
+const convertDateIntFormate = (value, format= "auto") => {
+    try {
+        let valueInt = Number(value) || 0;
+        if (valueInt < 0) return "";
+
+        let valueStr = "" + valueInt;
+        if (valueStr.length < 8) return "";
+        if (/\D/.test(valueStr)) return "";
+
+        let year = valueStr.substring(0, 4);
+        let yearInt = Number(year) || 0;
+        yearInt = offsetYear(yearInt, format);
+
+        let month = valueStr.substring(4, 6);
+        let monthInt = Number(month) || 0;
+
+        let day = valueStr.substring(6, 8);
+        let dayInt = Number(day) || 0;
+
+        let hour = valueStr.substring(8, 10);
+        let hourInt = Number(hour) || 0;
+
+        let minute = valueStr.substring(10, 12);
+        let minuteInt = Number(minute) || 0;
+
+        let second = valueStr.substring(12, 14);
+        let secondInt = Number(second) || 0;
+
+        let millisecond = valueStr.substring(14, 17);
+        let millisecondInt = Number(millisecond) || 0;
+
+        let result = new Date();
+        result.setFullYear(yearInt, monthInt - 1, dayInt);
+        result.setHours(hourInt, minuteInt, secondInt, millisecondInt);
+
+        if (isNaN(result.getTime())) return "";
+        return result;
+    } catch (err) {
+        console.error(err);
+        return "";
+    }
+};
+
+// export
+module.exports = {
+    convertNumber,
+    convertString,
+    convertDate,
+    convertDateInt,
+    convertDateIntFormate
+
+}
