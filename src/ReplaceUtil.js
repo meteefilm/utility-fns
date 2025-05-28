@@ -3,7 +3,7 @@
 const DateUtil = require('./DateUtil')
 
 
-module.exports.replaceNoENtoTH = (value) => {
+const replaceNoENtoTH = (value) => {
     value = value.toString();
     var find_full = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
     var replace_full = ["๑", "๒", "๓", "๔", "๕", "๖", "๗", "๘", "๙", "๐"];
@@ -30,7 +30,7 @@ module.exports.replaceNoENtoTH = (value) => {
 //     return newData
 // }
 
-module.exports.replaceDataToKey = (dataObj, keyObj) => {
+const replaceDataToKey = (dataObj, keyObj) => {
     if (Array.isArray(keyObj)) {
         return dataObj.map((item, index) => 
             replaceDataToKey(item || {}, keyObj[0])
@@ -71,7 +71,7 @@ module.exports.replaceDataToKey = (dataObj, keyObj) => {
     return dataObj;
 };
 
-module.exports.replaceNull = (dataObj) => {
+const replaceNull = (dataObj) => {
     if (dataObj) {
         for (const key in dataObj) {
             if (dataObj[key] === null) {
@@ -82,3 +82,10 @@ module.exports.replaceNull = (dataObj) => {
     return dataObj
 }
 
+
+// export
+module.exports = {
+    replaceDataToKey,
+    replaceNull,
+    replaceNoENtoTH
+}
