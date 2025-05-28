@@ -32,44 +32,54 @@ const replaceNoENtoTH = (value) => {
 
 const replaceDataToKey = (dataObj, keyObj) => {
     if (Array.isArray(keyObj)) {
-        return dataObj.map((item, index) => 
-            replaceDataToKey(item || {}, keyObj[0])
-        );
+        if (Array.isArray(dataObj)) {
+            return dataObj.map((item) =>
+                replaceDataToKey(item || {}, keyObj[0])
+            );
+        } else {
+            return [];
+        }
     } else if (typeof keyObj === "object" && keyObj !== null) {
         const newData = {};
         for (const key in keyObj) {
-            if (keyObj[key] instanceof Object && !(keyObj[key] instanceof Date)) {
-                newData[key] = replaceDataToKey(dataObj[key] || {}, keyObj[key]);
-            } else if (typeof keyObj[key] === "number") {
-                // Convert date to formatted string for number type in keyObj
-                if (dataObj[key] instanceof Date) {
-                    newData[key] = DateUtil.formatDateInt({ date: dataObj[key] });
+            const templateValue = keyObj[key];
+            const actualValue = dataObj?.[key];
+
+            if (Array.isArray(templateValue)) {
+                newData[key] = replaceDataToKey(actualValue || [], templateValue);
+            } else if (typeof templateValue === "object" && templateValue !== null && !(templateValue instanceof Date)) {
+                newData[key] = replaceDataToKey(actualValue || {}, templateValue);
+            } else if (typeof templateValue === "number") {
+                if (actualValue instanceof Date) {
+                    newData[key] = DateUtil.formatDateInt({ date: actualValue });
                 } else {
-                    newData[key] = dataObj[key] !== undefined && dataObj[key] !== null
-                        ? isNaN(Number(dataObj[key]))
-                            ? keyObj[key]
-                            : Number(dataObj[key])
-                        : keyObj[key];
+                    newData[key] = actualValue !== undefined && actualValue !== null
+                        ? isNaN(Number(actualValue))
+                            ? templateValue
+                            : Number(actualValue)
+                        : templateValue;
                 }
-            } else if (typeof keyObj[key] === "string") {
-                // Convert date to formatted string for string type in keyObj
-                if (dataObj[key] instanceof Date) {
-                    newData[key] = DateUtil.formatDateAPI({ date: dataObj[key] });
+            } else if (typeof templateValue === "string") {
+                if (actualValue instanceof Date) {
+                    newData[key] = DateUtil.formatDateAPI({ date: actualValue });
                 } else {
-                    newData[key] = dataObj[key] !== undefined && dataObj[key] !== null
-                        ? ""+dataObj[key]
-                        : keyObj[key];
+                    newData[key] = actualValue !== undefined && actualValue !== null
+                        ? String(actualValue)
+                        : templateValue;
                 }
             } else {
-                newData[key] = dataObj[key] !== undefined && dataObj[key] !== null
-                    ? dataObj[key]
-                    : keyObj[key];
+                newData[key] = actualValue !== undefined && actualValue !== null
+                    ? actualValue
+                    : templateValue;
             }
         }
         return newData;
     }
+
+    // default fallback
     return dataObj;
 };
+
 
 const replaceNull = (dataObj) => {
     if (dataObj) {
