@@ -107,7 +107,6 @@ const initData = {
 const mainConvertDate = (date = "", time = false, format = 0) => {
   if (date && NullString(date) !== "" && date !== "null") {
     let cur_date = new Date(date);
-
     if (isNaN(cur_date.getTime())) {
       console.warn("Invalid date input:", date);
       return "";
@@ -285,48 +284,52 @@ module.exports.formatDateAPI = ({
    * not show time => 0,false formatDateTH
    * normal : true,1,"",undefine, unsent
    */
-  let data = NullString(date) !== "" ? date : new Date();
-  data = new Date(date);
-  type = typeof type === "string" ? type.toUpperCase() : type;
-  switch (type) {
-    case 2:
-    case "FROM":
-    case "F":
-      data = mainConvertDate(data, false, format) + " 00:00:00";
-      break;
-    case 3:
-    case "TO":
-    case "T":
-      data = mainConvertDate(data, false, format) + " 23:59:59";
-      break;
-    case false:
-    case 0:
-    case "R":
-      data = mainConvertDate(data, false, format);
-      break;
-    case 1:
-    case true:
-    case "RT":
-    case "RTS":
-    default:
-      data = mainConvertDate(data, true, format);
-  }
-
-  if (["R", "RT", "RTS"].includes(type)) {
-    regEx = false
-  }
-
-  if (regEx === false || type === "R") {
-    data = data.replaceAll("-", "").replaceAll(":", "");
-    if (type === "RTS") {
-      data = data.replaceAll(" ", "");
-    }
+  if (NullString(date) === "") {
+    return "";
   } else {
-    if (regStr !== "-") {
-      data = data.replaceAll("-", regStr);
+    let data = NullString(date) !== "" ? date : new Date();
+    data = new Date(date);
+    type = typeof type === "string" ? type.toUpperCase() : type;
+    switch (type) {
+      case 2:
+      case "FROM":
+      case "F":
+        data = mainConvertDate(data, false, format) + " 00:00:00";
+        break;
+      case 3:
+      case "TO":
+      case "T":
+        data = mainConvertDate(data, false, format) + " 23:59:59";
+        break;
+      case false:
+      case 0:
+      case "R":
+        data = mainConvertDate(data, false, format);
+        break;
+      case 1:
+      case true:
+      case "RT":
+      case "RTS":
+      default:
+        data = mainConvertDate(data, true, format);
     }
+
+    if (["R", "RT", "RTS"].includes(type)) {
+      regEx = false
+    }
+
+    if (regEx === false || type === "R") {
+      data = data.replaceAll("-", "").replaceAll(":", "");
+      if (type === "RTS") {
+        data = data.replaceAll(" ", "");
+      }
+    } else {
+      if (regStr !== "-") {
+        data = data.replaceAll("-", regStr);
+      }
+    }
+    return data;
   }
-  return data;
 };
 
 module.exports.formatDateTH = ({ date = "", type = false } = { ...initData, type: false }) => {
