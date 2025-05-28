@@ -105,35 +105,35 @@ const initData = {
  * Main Convert Dete Fns
  */
 const mainConvertDate = (date = "", time = false, format = 0) => {
-  if (date) {
+  if (date && NullString(date) !== "" && date !== "null") {
     let cur_date = new Date(date);
+
+    if (isNaN(cur_date.getTime())) {
+      console.warn("Invalid date input:", date);
+      return "";
+    }
+
     let timezoneOffset = cur_date.getTimezoneOffset() / 60;
     cur_date.setHours(cur_date.getHours() - timezoneOffset);
     cur_date = cur_date.toISOString().replace("T", " ").replace("Z", "");
 
-    if (date && NullString(date) !== "" && date !== "null") {
-      let cur_date = new Date(date);
-      let timezoneOffset = cur_date.getTimezoneOffset() / 60;
-      cur_date.setHours(cur_date.getHours() - timezoneOffset);
-      cur_date = cur_date.toISOString().replace("T", " ").replace("Z", "");
+    let _data = cur_date.split(" ");
+    let day = _data[0];
+    if (day.split("-").length === 3 && format === 1) {
+      let _day = _data[0].split("-");
+      day = _day[2] + "-" + _day[1] + "-" + _day[0];
+    }
 
-      let _data = cur_date.split(" ");
-      let day = _data[0];
-      if (day.split("-").length === 3 && format === 1) {
-        let _day = _data[0].split("-");
-        day = _day[2] + "-" + _day[1] + "-" + _day[0];
-      }
-
-      if (time === true) {
-        return day + " " + _data[1].substring(0, _data[1].indexOf("."));
-      } else {
-        return day;
-      }
+    if (time === true) {
+      return day + " " + _data[1].substring(0, _data[1].indexOf("."));
+    } else {
+      return day;
     }
   }
 
   return date;
 };
+
 
 module.exports.configDateTH = () => {
   return LOCAL_CONFIG.TH;
