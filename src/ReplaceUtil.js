@@ -47,8 +47,20 @@ const replaceDataToKey = (dataObj, keyObj) => {
 
             if (Array.isArray(templateValue)) {
                 newData[key] = replaceDataToKey(actualValue || [], templateValue);
-            } else if (typeof templateValue === "object" && templateValue !== null && !(templateValue instanceof Date)) {
-                newData[key] = replaceDataToKey(actualValue || {}, templateValue);
+            } else if (
+                typeof templateValue === "object" &&
+                templateValue !== null &&
+                !(templateValue instanceof Date)
+            ) {
+                const isEmptyObj = Object.keys(templateValue).length === 0;
+
+                if (isEmptyObj) {
+                    newData[key] = typeof actualValue === "object" && actualValue !== null
+                        ? actualValue
+                        : {};
+                } else {
+                    newData[key] = replaceDataToKey(actualValue || {}, templateValue);
+                }
             } else if (typeof templateValue === "number") {
                 if (actualValue instanceof Date) {
                     newData[key] = DateUtil.formatDateInt({ date: actualValue });
@@ -76,7 +88,6 @@ const replaceDataToKey = (dataObj, keyObj) => {
         return newData;
     }
 
-    // default fallback
     return dataObj;
 };
 
