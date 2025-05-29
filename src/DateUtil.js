@@ -134,7 +134,7 @@ const mainConvertDate = (date = "", time = false, format = 0) => {
 };
 
 
-module.exports.configDateTH = () => {
+const configDateTH = () => {
   return LOCAL_CONFIG.TH;
 };
 
@@ -144,7 +144,7 @@ module.exports.configDateTH = () => {
  * ! month
  * ! year
  */
-module.exports.getDayList = (LOCAL = "TH") => {
+const getDayList = (LOCAL = "TH") => {
   let list = [];
   let localData = LOCAL_CONFIG[LOCAL];
   if (localData) {
@@ -177,7 +177,7 @@ module.exports.getDayList = (LOCAL = "TH") => {
   return list;
 };
 
-module.exports.getMonthList = (LOCAL = "TH") => {
+const getMonthList = (LOCAL = "TH") => {
   let list = [];
   let localData = LOCAL_CONFIG[LOCAL];
   if (localData) {
@@ -213,7 +213,7 @@ module.exports.getMonthList = (LOCAL = "TH") => {
   return list;
 };
 
-module.exports.getYearList = (start = 0, end = 0, LOCAL = "TH") => {
+const getYearList = (start = 0, end = 0, LOCAL = "TH") => {
   const list = [];
   let curYear = new Date().getFullYear();
   if (LOCAL === "TH") {
@@ -245,16 +245,16 @@ module.exports.getYearList = (start = 0, end = 0, LOCAL = "TH") => {
  * ! Month
  * ! Current Thai year
  */
-module.exports.getDayData = (value = "", key = "value", name = "label", LOCAL = "TH") => {
-  return indexOfList({ arr: this.getDayList(LOCAL), code: value, key, name })
+const getDayData = (value = "", key = "value", name = "label", LOCAL = "TH") => {
+  return indexOfList({ arr: getDayList(LOCAL), code: value, key, name })
 };
 
 
-module.exports.getMonthData = (value = "", key = "value", name = "label", LOCAL = "TH") => {
-  return indexOfList({ arr: this.getMonthList(LOCAL), code: value, key, name })
+const getMonthData = (value = "", key = "value", name = "label", LOCAL = "TH") => {
+  return indexOfList({ arr: getMonthList(LOCAL), code: value, key, name })
 };
 
-module.exports.getCurYearTH = () => {
+const getCurYearTH = () => {
   return new Date().getFullYear() > 2500
     ? new Date().getFullYear()
     : new Date().getFullYear() + 543;
@@ -264,13 +264,13 @@ module.exports.getCurYearTH = () => {
  * Custom Date Function
  * * ADD Date
  */
-module.exports.addDays = (date, days = 1) => {
+const addDays = (date, days = 1) => {
   const newDate = new Date(Number(date));
   newDate.setDate(date.getDate() + days);
   return newDate;
 };
 
-module.exports.formatDateAPI = ({
+const formatDateAPI = ({
   date = "",
   type = true,
   regEx = true,
@@ -332,7 +332,7 @@ module.exports.formatDateAPI = ({
   }
 };
 
-module.exports.formatDateTH = ({ date = "", type = false } = { ...initData, type: false }) => {
+const formatDateTH = ({ date = "", type = false } = { ...initData, type: false }) => {
   if (date && NullString(date) !== "" && date !== "null") {
     let cur_date = new Date(date);
     let timezoneOffset = cur_date.getTimezoneOffset() / 60;
@@ -352,7 +352,7 @@ module.exports.formatDateTH = ({ date = "", type = false } = { ...initData, type
   return date;
 };
 
-module.exports.formatDateTHSession = ({ date = "", type = false, format = 0 } = { ...initData, type: false }) => {
+const formatDateTHSession = ({ date = "", type = false, format = 0 } = { ...initData, type: false }) => {
   if (date && NullString(date) !== "" && date !== "null") {
     let cur_date = new Date(date);
     let timezoneOffset = cur_date.getTimezoneOffset() / 60;
@@ -380,7 +380,7 @@ module.exports.formatDateTHSession = ({ date = "", type = false, format = 0 } = 
 };
 
 
-module.exports.formatDateInt = ({ date = "", type = false } = { ...initData, type: false }) => {
+const formatDateInt = ({ date = "", type = false } = { ...initData, type: false }) => {
   let data = "";
   if (date !== undefined && date !== null) {
     if (type === true) {
@@ -392,3 +392,18 @@ module.exports.formatDateInt = ({ date = "", type = false } = { ...initData, typ
   return data;
 };
 
+
+module.exports ={
+  configDateTH,
+  getDayList,
+  getMonthList,
+  getYearList,
+  getDayData,
+  getMonthData,
+  getCurYearTH,
+  addDays,
+  formatDateAPI,
+  formatDateTH,
+  formatDateTHSession,
+  formatDateInt
+}

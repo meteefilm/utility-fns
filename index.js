@@ -99,6 +99,11 @@ module.exports.randomRGB = GenerateUtil.randomRGB;
 module.exports.ranRGBA = GenerateUtil.randomRGBA;
 module.exports.randomRGBA = GenerateUtil.randomRGBA;
 
+//** Mock Data **/
+const MockData = require('./src/MockData');
+module.exports.CrontabData = MockData.CrontabData;
+
+
 // module.exports = require('./src/DateUtil'); /** Date **/
 // module.exports = require('./src/NullUtil'); /** Null **/
 // module.exports = require('./src/ReplaceUtil'); /** Replace **/

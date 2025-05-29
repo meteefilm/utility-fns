@@ -7,8 +7,7 @@ const NullUtil = require('./NullUtil')
  * @param key - The key to use for the comparison.
  * @returns The index of the max value.
  */
-module.exports.indexOfMax = ({ arr, key = 'seq' }) => {
-
+const indexOfMax = ({ arr, key = 'seq' }) => {
     if (arr.length === 0) {
         return 0;
     } else if (arr.length === 1) {
@@ -32,7 +31,7 @@ module.exports.indexOfMax = ({ arr, key = 'seq' }) => {
  * @param [code] - The code of the list to be found.
  * @returns The name of the list item that matches the code.
  */
-module.exports.indexOfList = ({ arr = [], code = '', key = 'code', name = 'name' }) => {
+const indexOfList = ({ arr = [], code = '', key = 'code', name = 'name' }) => {
     let data = ''
     if (Array.isArray(arr) && arr.length > 0) {
         let index = arr.findIndex((item) => item[key] === code)
@@ -49,7 +48,7 @@ module.exports.indexOfList = ({ arr = [], code = '', key = 'code', name = 'name'
  * @param [code] - The code of the list to be found.
  * @returns The name of the list item that matches the code.
  */
-module.exports.findList = ({ arr = [], code = '', key = 'value', name = 'label' }) => {
+const findList = ({ arr = [], code = '', key = 'value', name = 'label' }) => {
     let data = ''
     if (Array.isArray(arr) && arr.length > 0) {
         let _data = arr.find((item) => item[key] === code)
@@ -65,7 +64,7 @@ module.exports.findList = ({ arr = [], code = '', key = 'value', name = 'label' 
  * @param [code] - The code you want to find in the array
  * @param [key=code] - the key of the object you want to find
  */
-module.exports.objectOfList = ({ arr = [], code = '', key = 'code' }) => {
+const objectOfList = ({ arr = [], code = '', key = 'code' }) => {
     let data = undefined
     if (Array.isArray(arr) && arr.length > 0) {
         let index = arr.findIndex((item) => item[key] === code)
@@ -83,7 +82,7 @@ module.exports.objectOfList = ({ arr = [], code = '', key = 'code' }) => {
  * @param [key=index] - the key to sort by
  * @returns An array of objects with the key of index and the value of the index + 1
  */
-module.exports.sortIndexOfList = ({ arr, key = 'index' }) => {
+const sortIndexOfList = ({ arr, key = 'index' }) => {
     if (arr && arr.length > 0) {
 
         return arr.map((item, index) => {
@@ -97,7 +96,7 @@ module.exports.sortIndexOfList = ({ arr, key = 'index' }) => {
 }
 
 //** Delete data and Sort List by index */
-module.exports.dnsList = (selectList, dataList) => {
+const dnsList = (selectList, dataList) => {
     if (typeof selectList === "number") {
         dataList.splice(selectList[selectList].index, 1);
     } else {
@@ -114,7 +113,7 @@ module.exports.dnsList = (selectList, dataList) => {
     return dataList
 }
 
-module.exports.sortList = ({ arr, key = 'index', sort = 1 }) => {
+const sortList = ({ arr, key = 'index', sort = 1 }) => {
     if (arr && arr.length > 0) {
         if (sort === 1) {
             arr.sort((a, b) => a[key] - b[key]);
@@ -125,9 +124,9 @@ module.exports.sortList = ({ arr, key = 'index', sort = 1 }) => {
     return arr
 }
 
-module.exports.sortAndOrderList = ({ arr, key = 'index', sort = 1 }) => {
+const sortAndOrderList = ({ arr, key = 'index', sort = 1 }) => {
     if (arr && arr.length > 0) {
-        arr = this.sortList({ arr, key, sort })
+        arr = sortList({ arr, key, sort })
         arr = arr.map((item, index) => {
             return {
                 ...item,
@@ -139,4 +138,15 @@ module.exports.sortAndOrderList = ({ arr, key = 'index', sort = 1 }) => {
 }
 
 
+// export
+module.exports = {
+    sortAndOrderList,
+    sortList,
+    dnsList,
+    sortIndexOfList,
+    objectOfList,
+    findList,
+    indexOfList,
+    indexOfMax
+}
 
