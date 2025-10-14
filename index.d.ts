@@ -144,7 +144,7 @@ export declare const Validator: {
     readonly isArray: <T>(value: any) => value is Array<T>;
     readonly isObject: <T>(value: any) => value is Record<string, T>;
     readonly isEmpty: (value: any) => value is "";
-    readonly isThaiID: (value: any) => boolean;
+    readonly isCitizenId: (value: any) => boolean;
     readonly isContainerID: (value: any) => boolean;
 };
 
