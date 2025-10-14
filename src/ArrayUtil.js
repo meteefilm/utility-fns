@@ -1,5 +1,6 @@
 "use strict";
 const NullUtil = require("./NullUtil");
+const ConvertUtil = require('./ConvertUtil');
 
 /**
  * Find the maximum value of a key in an array of objects
@@ -146,7 +147,7 @@ const groupBy = (items, keySelector) => {
         }, obj);
     };
 
-    return TypeConverter.array(items).reduce((acc, item, index) => {
+    return ConvertUtil.TypeConverter.array(items).reduce((acc, item, index) => {
         const key = typeof keySelector === "string" ? getNestedValue(item, keySelector) : keySelector(item, index);
         if (!(key in acc)) {
             acc[key] = [];
