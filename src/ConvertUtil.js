@@ -1,38 +1,67 @@
-'use strict';
+"use strict";
 
-const NullUtil = require('./NullUtil')
+const NullUtil = require("./NullUtil");
 
-const convertNumber = (data = "") => {
-    if (NullUtil.NullString(data) !== "") {
-        if (typeof data === "boolean") {
-            return data ? 1 : 0
-        } else if (typeof data === "string") {
-            return parseInt(data)
-        }
-        return data;
-    }
-    return 0;
-}
+const convertNumber = (data, defaultValue = 0) => {
+    const num = Number(data ?? defaultValue);
+    return isFinite(num) ? num : defaultValue;
+};
 
-const convertString = (data = "") => {
-    if (data !== undefined && data !== null) {
-        return "" + data
-    } else {
-        return ""
-    }
-}
+const convertString = (data, defaultValue = "") => {
+    return String(data ?? defaultValue);
+};
+
+const TypeConverterArray = (val, defaultValue = []) => {
+    return Array.isArray(val) ? val : defaultValue;
+};
+
+const TypeConverterCurrency = (val, fractionDigits = 2, defaultValue = 0) => {
+    // let numStr = String(val ?? defaultValue).replaceAll(',', '');
+    let numStr = String(val ?? defaultValue).replace(/,/g, "");
+
+    const num = Number(numStr);
+    return isFinite(num) ? Number(num.toFixed(fractionDigits)) : defaultValue;
+};
+
+const TypeConverterFormatNumber = (val, fractionDigits = 2, defaultValue = 0) => {
+    const num = TypeConverterCurrency(val, fractionDigits, defaultValue);
+    return num.toLocaleString("en-US", {
+        minimumFractionDigits: fractionDigits,
+        maximumFractionDigits: fractionDigits,
+    });
+};
+
+const isDateConvertible = (value) => {
+    return value instanceof Date || typeof value === "number" || typeof value === "string";
+};
 
 const convertDate = (data = "") => {
     if (data !== undefined && data !== null && data !== "") {
+        if (!isDateConvertible(data)) {
+            return "";
+        }
         try {
-            return new Date(data)
+            let result = new Date(data);
+            if (isFinite(result.getTime())) {
+                return result;
+            }
+            return "";
         } catch (e) {
-            return ""
+            return "";
         }
     } else {
-        return ""
+        return "";
     }
-}
+};
+
+const TypeConverter = {
+    number: convertNumber,
+    string: convertString,
+    array: TypeConverterArray,
+    currency: TypeConverterCurrency,
+    formatNumber: TypeConverterFormatNumber,
+    date: convertDate,
+};
 
 const offsetYear = (year, format = "auto") => {
     try {
@@ -47,7 +76,7 @@ const offsetYear = (year, format = "auto") => {
 };
 
 // value: unknown, format: "auto" | "th" | "en" = "auto"
-const convertDateInt = (value, format= "auto") => {
+const convertDateInt = (value, format = "auto") => {
     try {
         let valueInt = Number(value) || 0;
         if (valueInt < 0) return "";
@@ -90,7 +119,7 @@ const convertDateInt = (value, format= "auto") => {
     }
 };
 
-const convertDateIntFormate = (value, format= "auto") => {
+const convertDateIntFormate = (value, format = "auto") => {
     try {
         let valueInt = Number(value) || 0;
         if (valueInt < 0) return "";
@@ -139,5 +168,6 @@ module.exports = {
     convertString,
     convertDate,
     convertDateInt,
-    convertDateIntFormate
-}
+    convertDateIntFormate,
+    TypeConverter,
+};
