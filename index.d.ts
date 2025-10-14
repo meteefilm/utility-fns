@@ -41,9 +41,11 @@ export declare function sortIndexOfList(obj: ArrayUtils): any;
 export declare function sortList(obj: SortArrayUtils): any | [] | object;
 export declare function sortAndOrderList(obj: SortArrayUtils): any | [] | object;
 export declare function SAOList(obj: SortArrayUtils): any | [] | object;
+export declare const groupBy: <T extends Record<string, any>>(items: Array<T>, keySelector: Function | string) => Record<string, T[]>;
 
 //** Date */
 export declare function addDays(date: Date, days: number): string | number;
+export declare const diffInDays: (date1: Date, date2: Date) => number;
 export declare function configDateTH(): object;
 export declare function fmd(option: FormatOptions): string;
 export declare function formatDate(option: FormatOptions): string;
@@ -78,11 +80,19 @@ export declare function repDTK(dataObj: object, keyObj: object): object;
 export declare function repNET(value: string): string;
 
 //** Convert **/
-export declare function convertNumber(data: number | string | boolean): object;
-export declare function convertString(data: number | string): string;
+export declare function convertNumber(data: number | string | boolean, defaultValue?: number): object;
+export declare function convertString(data: number | string, defaultValue?: string): string;
 export declare function convertDate(data: string): object;
 export declare function convertDateInt(value: string | number, format?: "auto" | "th" | "en"): Date | string | "";
 export declare function convertDI(value: string | number, format?: "auto" | "th" | "en"): Date | string | "";
+export declare const TypeConverter: {
+    readonly number: (val: any, defaultValue?: number) => number;
+    readonly string: (val: any, defaultValue?: string) => string;
+    readonly array: <T>(val: any, defaultValue?: Array<T>) => Array<T>;
+    readonly currency: (val: any, fractionDigits?: number, defaultValue?: number) => number;
+    readonly formatNumber: (val: any, fractionDigits?: number, defaultValue?: number) => string;
+    readonly date: (val: any) => Date | null;
+};
 
 //** Store */
 export declare function storeCDI(store: any, search: object): object;
@@ -108,6 +118,35 @@ export declare function randomRGBA(): string;
 //** validate **/
 export declare function validateDateSF(obj: object, startId: string, endId: string, report?: boolean): string;
 export declare function validateCitizenId(id: string | number): boolean;
+export declare const ValidatorRegEx: {
+    readonly thaiID: RegExp;
+    readonly containerIDTrimmed: RegExp;
+    readonly containerID: RegExp;
+    readonly email: RegExp;
+    readonly thaiChar: RegExp;
+    readonly thaiName: RegExp;
+    readonly thaiFullName: RegExp;
+    readonly thaiTitleName: RegExp;
+    readonly thaiFullNameWithTitle: RegExp;
+    readonly engName: RegExp;
+    readonly engFullName: RegExp;
+    readonly engTitleName: RegExp;
+    readonly engFullNameWithTitle: RegExp;
+    readonly phoneNoTH: RegExp;
+    readonly passwordMinLength6: RegExp;
+    readonly passwordMinLength8: RegExp;
+    readonly passwordMinLength16: RegExp;
+};
+export declare const Validator: {
+    readonly isNullish: (value: any) => value is null | undefined;
+    readonly isFalsy: (value: any) => value is false | 0 | "" | null | undefined;
+    readonly isDate: (value: any) => value is Date;
+    readonly isArray: <T>(value: any) => value is Array<T>;
+    readonly isObject: <T>(value: any) => value is Record<string, T>;
+    readonly isEmpty: (value: any) => value is "";
+    readonly isThaiID: (value: any) => boolean;
+    readonly isContainerID: (value: any) => boolean;
+};
 
 //** treeData **/
 export declare function convertLTT(list: object, keyLev: string, keyCtl: string, keyCur: string): object;
@@ -121,16 +160,5 @@ export declare function setKeyTree(keyData: object, key: string, type?: number):
 export declare function changeKeyTree(list: object, oldKey: string, newKey: string): object;
 export declare function findTreeNode(nodes: object, e: string): object;
 
-
 //** MockData **/
 export declare const CrontabData: CrontabDataType;
-
-
-
-
-
-
-
-
-
-

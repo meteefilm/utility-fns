@@ -18,6 +18,7 @@ module.exports.sortIndexOfList = ArrayUtil.sortIndexOfList;
 module.exports.sortList = ArrayUtil.sortList;
 module.exports.sortAndOrderList = ArrayUtil.sortAndOrderList;
 module.exports.SAOList = ArrayUtil.sortAndOrderList;
+module.exports.groupBy = ArrayUtil.groupBy;
 
 /** ConvertUtil **/
 const ConvertUtil = require('./src/ConvertUtil');
@@ -26,6 +27,7 @@ module.exports.convertString = ConvertUtil.convertString;
 module.exports.convertDate = ConvertUtil.convertDate;
 module.exports.convertDateInt = ConvertUtil.convertDateInt;
 module.exports.convertDI = ConvertUtil.convertDateInt;
+module.exports.TypeConverter = ConvertUtil.TypeConverter;
 
 //** Replace **/
 const ReplaceUtil = require('./src/ReplaceUtil');
@@ -35,7 +37,7 @@ module.exports.replaceNull = ReplaceUtil.replaceNull;
 module.exports.repDTK = ReplaceUtil.replaceDataToKey;
 module.exports.repNET = ReplaceUtil.replaceNoENtoTH;
 
-//** Replace **/
+//** TextUtil **/
 const TextUtil = require('./src/TextUtil');
 module.exports.NumberFormat = TextUtil.NumberFormat;
 module.exports.RandomText = TextUtil.RandomText;
@@ -47,6 +49,8 @@ module.exports.RN = TextUtil.RandomNumber;
 const ValidateUtil = require('./src/ValidateUtil');
 module.exports.validateDateSF = ValidateUtil.validateDateSF;
 module.exports.validateCitizenId = ValidateUtil.validateCitizenId;
+module.exports.ValidatorRegEx = ValidateUtil.ValidatorRegEx;
+module.exports.Validator = ValidateUtil.Validator;
 
 //** storeUtil **/
 const storeUtil = require('./src/storeUtil');
@@ -59,9 +63,10 @@ module.exports.storeSDD = storeUtil.storeSDD;
 module.exports.storeSDL = storeUtil.storeSDL;
 module.exports.storeSDO = storeUtil.storeSDO;
 
-//** storeUtil **/
+//** DateUtil **/
 const DateUtil = require('./src/DateUtil');
 module.exports.addDays = DateUtil.addDays;
+module.exports.diffInDays = DateUtil.diffInDays;
 module.exports.configDateTH = DateUtil.configDateTH;
 module.exports.fmd = DateUtil.formatDateAPI;
 module.exports.formatDate = DateUtil.formatDateAPI;
@@ -79,7 +84,7 @@ module.exports.getMonthData = DateUtil.getMonthData;
 module.exports.getMonthList = DateUtil.getMonthList;
 module.exports.getYearList = DateUtil.getYearList;
 
-//** ConvertUtil **/
+//** TreeUtil **/
 const TreeUtil = require('./src/TreeUtil');
 module.exports.convertLTT = TreeUtil.convertListToTree;
 module.exports.convertListToTree = TreeUtil.convertListToTree;

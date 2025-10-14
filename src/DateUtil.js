@@ -270,6 +270,11 @@ const addDays = (date, days = 1) => {
   return newDate;
 };
 
+const diffInDays = (date1, date2) => {
+    const diff = Math.abs(date2.getTime() - date1.getTime());
+    return Math.ceil(diff / (1000 * 60 * 60 * 24));
+};
+
 const formatDateAPI = ({
   date = "",
   type = true,
@@ -406,6 +411,7 @@ module.exports = {
   getMonthData,
   getCurYearTH,
   addDays,
+  diffInDays,
   formatDateAPI,
   formatDateTH,
   formatDateTHSession,
