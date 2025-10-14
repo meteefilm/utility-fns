@@ -13,6 +13,7 @@ npm install utility-fns
 - **Validate Input**
 - **Convert**
 - **Generate**
+- **Array**
 
 ## Example 
 **Date Function**
@@ -154,6 +155,13 @@ console.log(formatDate({ date : new Date() , regEx : false })) //return 20230803
 |  **regStr** 	| -            	|                        	|                     	| **_default_**                                  	|
 |             	| / or etc     	| yyyy/mm/dd HH24:MI:SS  	| 2023/08/03 07:30:10 	| replace only date and **regEx** value is true. 	|
 
+**Calculate Date Function**
+```js
+import {addDays,diffInDays} from 'utility-fns';
+const now = new Date(); // 2025-01-01T00:00:00.000Z
+const add7Days = addDays(now, 7); // 2025-01-08T00:00:00.000Z
+const diffDays = diffInDays(now, add7Days); // 7
+```
 
 **Null Function**
 ```js
@@ -180,9 +188,23 @@ console.log(NumberFormat(1234,false)); //1234
 
 **Convert Function**
 ```js
-import {convertDateInt} from 'utility-fns';
+import {convertDateInt,convertNumber,convertString} from 'utility-fns';
 
 console.log(convertDateInt("20241128")); // 2024-08-02T17:00:00.000Z
+
+// Convert number without set default return
+console.log(convertNumber("123")); // 123
+console.log(convertNumber(null)); // 0
+// Convert number with set default return
+console.log(convertNumber("123", -1)); // 123
+console.log(convertNumber(null, -1)); // -1
+
+// Convert string without set default return
+console.log(convertString("text")); // "text"
+console.log(convertString(null)); // ""
+// Convert string with set default return
+console.log(convertString("text", "Default text")); // "text"
+console.log(convertString(null, "Default text")); // "Default text"
 
 ```
 
@@ -357,4 +379,79 @@ result convert : [
     }
 ]
 
+```
+
+**Validate Input Function**
+```js
+import {Validator,validateCitizenId} from 'utility-fns';
+// Validate Thai Citizen ID (13 digits with check digit)
+console.log(Validator.isCitizenId("1234567890123")); // false
+console.log(Validator.isCitizenId("1234567890121")); // true
+// Both ways work the same
+console.log(validateCitizenId("1234567890121")); // true
+
+// Validate Container ID (ISO 6346 standard)
+console.log(Validator.isContainerID("AAAU1234567")); // false
+console.log(Validator.isContainerID("AAAU1234566")); // true
+```
+
+**Array Function**
+```js
+import {groupBy} from 'utility-fns';
+
+const users = [
+    { id: 1, name: 'Alice', department: 'Engineering', details: { age: 30, city: 'Bangkok' } },
+    { id: 2, name: 'Bob', department: 'Sales', details: { age: 25, city: 'Chiang Mai' } },
+    { id: 3, name: 'Charlie', department: 'Engineering', details: { age: 35, city: 'Bangkok' } },
+    { id: 4, name: 'David', department: 'Sales', details: { age: 28, city: 'Phuket' } },
+];
+
+// String path
+const byDepartment = groupBy(users, 'department');
+console.log(byDepartment);
+{
+    Engineering: [
+        { id: 1, name: "Alice", department: "Engineering", details: { age: 30, city: "Bangkok" } },
+        { id: 3, name: "Charlie", department: "Engineering", details: { age: 35, city: "Bangkok" } },
+    ],
+    Sales: [
+        { id: 2, name: "Bob", department: "Sales", details: { age: 25, city: "Chiang Mai" } },
+        { id: 4, name: "David", department: "Sales", details: { age: 28, city: "Phuket" } },
+    ],
+}
+
+// Nested path
+const byCity = groupBy(users, 'details.city');
+console.log(byCity);
+{
+    Bangkok: [
+        { id: 1, name: "Alice", department: "Engineering", details: { age: 30, city: "Bangkok" } },
+        { id: 3, name: "Charlie", department: "Engineering", details: { age: 35, city: "Bangkok" } },
+    ],
+    "Chiang Mai": [
+        { id: 2, name: "Bob", department: "Sales", details: { age: 25, city: "Chiang Mai" } },
+    ],
+    Phuket: [
+        { id: 4, name: "David", department: "Sales", details: { age: 28, city: "Phuket" } },
+    ],
+}
+
+// Function
+const byAgeGroup = groupBy(users, (user: any) => {
+    const age = user.details.age;
+    if (age < 30) return '20s';
+    if (age < 40) return '30s';
+    return '40+';
+});
+console.log(byAgeGroup);
+{
+    "30s": [
+        { id: 1, name: "Alice", department: "Engineering", details: { age: 30, city: "Bangkok" } },
+        { id: 3, name: "Charlie", department: "Engineering", details: { age: 35, city: "Bangkok" } },
+    ],
+    "20s": [
+        { id: 2, name: "Bob", department: "Sales", details: { age: 25, city: "Chiang Mai" } },
+        { id: 4, name: "David", department: "Sales", details: { age: 28, city: "Phuket" } },
+    ],
+}
 ```
