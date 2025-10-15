@@ -1,0 +1,100 @@
+name: npm publish (tag or version bump)
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "package.json"
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write   # สำหรับ npm provenance (ถ้าใช้)
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npm test
+
+  publish-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          registry-url: https://registry.npmjs.org/
+
+      - run: npm ci
+
+      # ดึงเวอร์ชันจาก package.json และ branch/tag ปัจจุบัน
+      - name: Read version & decide publish reason
+        id: meta
+        run: |
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          echo "pkg_version=${PKG_VERSION}" >> $GITHUB_OUTPUT
+
+          REF="${GITHUB_REF##*/}"            # tag ชื่อ vX.Y.Z หรือชื่อ branch
+          echo "ref_name=${REF}" >> $GITHUB_OUTPUT
+
+          PUBLISH_REASON="none"
+
+          if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+            # กรณีมี tag -> ต้องตรงกับ package.json
+            if [[ "${REF}" != "v${PKG_VERSION}" ]]; then
+              echo "::error::Tag (${REF}) ไม่ตรงกับ package.json (v${PKG_VERSION})"
+              exit 1
+            fi
+            PUBLISH_REASON="tag"
+          else
+            # กรณี push เข้า main ให้เช็คว่า package.json เปลี่ยนและเลข version เปลี่ยนจริง
+            if git diff --name-only HEAD^ HEAD | grep -q "^package.json$"; then
+              # เช็คเลขเวอร์ชันก่อนหน้า
+              PREV_VERSION=$(git show HEAD^:package.json | node -p "require('fs').readFileSync(0,'utf8')" | node -e "process.stdout.write(JSON.parse(require('fs').readFileSync(0,'utf8')).version)")
+              if [[ "${PREV_VERSION}" != "${PKG_VERSION}" ]]; then
+                PUBLISH_REASON="version-bump"
+              fi
+            fi
+          fi
+
+          echo "reason=${PUBLISH_REASON}" >> $GITHUB_OUTPUT
+
+      - name: Stop if no publish needed
+        if: steps.meta.outputs.reason == 'none'
+        run: |
+          echo "No version change and no tag. Skip publish."
+
+      # (ออปชัน) สร้าง tag อัตโนมัติถ้าเป็น version bump ที่ main และยังไม่มี tag
+      - name: Create and push tag v<version>
+        if: steps.meta.outputs.reason == 'version-bump'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "v${{ steps.meta.outputs.pkg_version }}"
+          git push origin "v${{ steps.meta.outputs.pkg_version }}"
+
+      # Publish ไป NPM
+      - name: Publish to npm
+        if: steps.meta.outputs.reason != 'none'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          # ใส่ --access public ถ้าเป็น scoped package เผยแพร่ครั้งแรก
+          # เพิ่ม --provenance ถ้าอยากใช้ NPM provenance (ต้องใช้ id-token: write)
+          npm publish --provenance
