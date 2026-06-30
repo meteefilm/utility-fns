@@ -11,6 +11,17 @@ const convertString = (data, defaultValue = "") => {
     return String(data ?? defaultValue);
 };
 
+const convertBoolean = (data, defaultValue = false) => {
+    if (data === null || data === undefined || data === "") return defaultValue;
+    if (typeof data === "boolean") return data;
+    if (typeof data === "number") return data !== 0;
+
+    const value = String(data).trim().toLowerCase();
+    if (["true", "t", "yes", "y", "1"].includes(value)) return true;
+    if (["false", "f", "no", "n", "0"].includes(value)) return false;
+    return defaultValue;
+};
+
 const TypeConverterArray = (val, defaultValue = []) => {
     return Array.isArray(val) ? val : defaultValue;
 };
@@ -57,6 +68,7 @@ const convertDate = (data = "") => {
 const TypeConverter = {
     number: convertNumber,
     string: convertString,
+    boolean: convertBoolean,
     array: TypeConverterArray,
     currency: TypeConverterCurrency,
     formatNumber: TypeConverterFormatNumber,
@@ -166,6 +178,7 @@ const convertDateIntFormate = (value, format = "auto") => {
 module.exports = {
     convertNumber,
     convertString,
+    convertBoolean,
     convertDate,
     convertDateInt,
     convertDateIntFormate,

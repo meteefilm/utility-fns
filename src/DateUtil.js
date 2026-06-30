@@ -2,6 +2,7 @@
 
 const { indexOfList } = require("./ArrayUtil");
 const { NullString } = require("./NullUtil");
+const { TH_CALENDAR_LOCALE } = require("./LocaleUtil");
 
 const LOCAL_CONFIG = {
   TH: {
@@ -94,6 +95,11 @@ const LOCAL_CONFIG = {
   },
 };
 
+LOCAL_CONFIG.TH = {
+  ...LOCAL_CONFIG.TH,
+  ...TH_CALENDAR_LOCALE,
+};
+
 const initData = {
   date: new Date(),
   type: true,
@@ -135,7 +141,10 @@ const mainConvertDate = (date = "", time = false, format = 0) => {
 
 
 const configDateTH = () => {
-  return LOCAL_CONFIG.TH;
+  return {
+    ...LOCAL_CONFIG.TH,
+    ...TH_CALENDAR_LOCALE,
+  };
 };
 
 /**
@@ -325,13 +334,13 @@ const formatDateAPI = ({
       }
 
       if (regEx === false || type === "R") {
-        data = data.replaceAll("-", "").replaceAll(":", "");
+        data = data.replace(/-/g, "").replace(/:/g, "");
         if (type === "RTS") {
-          data = data.replaceAll(" ", "");
+          data = data.replace(/ /g, "");
         }
       } else {
         if (regStr !== "-") {
-          data = data.replaceAll("-", regStr);
+          data = data.replace(/-/g, regStr);
         }
       }
       return data;
@@ -393,12 +402,37 @@ const formatDateInt = ({ date = "", type = false } = { ...initData, type: false 
   let data = "";
   if (date !== undefined && date !== null) {
     if (type === true) {
-      data = mainConvertDate(date, type).replaceAll("-", "").replaceAll(":", "");
-    } else {
-      data = mainConvertDate(date, type).replaceAll("-", "");
-    }
+    data = mainConvertDate(date, type).replace(/-/g, "").replace(/:/g, "");
+  } else {
+      data = mainConvertDate(date, type).replace(/-/g, "");
+  }
   }
   return data;
+};
+
+const formatDateTime = (date, options = {}) => {
+  return formatDateAPI({ date, type: true, ...options });
+};
+
+const formatDateOnly = (date, options = {}) => {
+  return formatDateAPI({ date, type: false, ...options });
+};
+
+const formatDateCompact = (date, withTime = false) => {
+  return formatDateAPI({ date, type: withTime ? "RTS" : "R" });
+};
+
+const formatThaiDate = (date, withTime = false) => {
+  return formatDateTH({ date, type: withTime });
+};
+
+const parseDateInt = (value, format = "auto") => {
+  try {
+    const ConvertUtil = require("./ConvertUtil");
+    return ConvertUtil.convertDateInt(value, format);
+  } catch (error) {
+    return "";
+  }
 };
 
 
@@ -413,7 +447,12 @@ module.exports = {
   addDays,
   diffInDays,
   formatDateAPI,
+  formatDateTime,
+  formatDateOnly,
+  formatDateCompact,
+  formatThaiDate,
   formatDateTH,
   formatDateTHSession,
-  formatDateInt
+  formatDateInt,
+  parseDateInt
 }

@@ -57,12 +57,13 @@ const validateDateSF = (obj, startId, endId, report = false) => {
 };
 
 const validateCitizenId = (id = "") => {
-    if (id?.substring(0, 1) === 0) return false;
-    if (id?.length !== 13) return false;
+    id = ConvertUtil.TypeConverter.string(id).replace(/\D/g, "");
+    if (id.substring(0, 1) === "0") return false;
+    if (id.length !== 13) return false;
     let i,
         sum = 0;
-    for (i = 0; i < 12; i++) sum += parseFloat(id?.charAt(i)) * (13 - i);
-    if ((11 - (sum % 11)) % 10 !== parseFloat(id?.charAt(12))) return false;
+    for (i = 0; i < 12; i++) sum += parseFloat(id.charAt(i)) * (13 - i);
+    if ((11 - (sum % 11)) % 10 !== parseFloat(id.charAt(12))) return false;
     return true;
 };
 
@@ -94,7 +95,7 @@ const ValidatorIsFalsy = (value) => {
 };
 
 const ValidatorIsDate = (value) => {
-    return value instanceof Date;
+    return value instanceof Date && !isNaN(value.getTime());
 };
 
 const ValidatorIsArray = (value) => {
@@ -119,6 +120,18 @@ const ValidatorIsEmpty = (value) => {
         return Object.keys(value).length === 0;
     }
     return false;
+};
+
+const ValidatorIsString = (value) => {
+    return typeof value === "string";
+};
+
+const ValidatorIsNumber = (value) => {
+    return typeof value === "number" && !isNaN(value);
+};
+
+const ValidatorIsBoolean = (value) => {
+    return typeof value === "boolean";
 };
 
 const calChecksumDigitContainerID = (value) => {
@@ -188,6 +201,9 @@ const Validator = {
     isNullish: ValidatorIsNullish,
     isFalsy: ValidatorIsFalsy,
     isDate: ValidatorIsDate,
+    isString: ValidatorIsString,
+    isNumber: ValidatorIsNumber,
+    isBoolean: ValidatorIsBoolean,
     isArray: ValidatorIsArray,
     isObject: ValidatorIsObject,
     isEmpty: ValidatorIsEmpty,

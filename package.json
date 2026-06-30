@@ -1,11 +1,38 @@
 {
   "name": "utility-fns",
-  "version": "1.8.0",
-  "description": "custom utillies for react",
+  "version": "2.0.0",
+  "description": "Shared JavaScript utility functions for company Node, Next.js, and React projects",
   "main": "./index.js",
   "types": "./index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node tests/smoke.test.js"
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "src/ArrayUtil.js",
+    "src/ConvertUtil.js",
+    "src/DateUtil.js",
+    "src/GenerateUtil.js",
+    "src/LocaleUtil.js",
+    "src/MockData.js",
+    "src/NullUtil.js",
+    "src/ObjectUtil.js",
+    "src/PayloadUtil.js",
+    "src/ReplaceUtil.js",
+    "src/SafeUtil.js",
+    "src/StringUtil.js",
+    "src/storeUtil.js",
+    "src/TextUtil.js",
+    "src/TreeUtil.js",
+    "src/UuidUtil.js",
+    "src/ValidateUtil.js",
+    "README.md",
+    "MIGRATION_V2.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=14"
   },
   "repository": {
     "type": "git",
@@ -19,14 +46,12 @@
     "tree list"
   ],
   "author": "Metee Khumchat",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/meteefilm/utility-fns/issues"
   },
   "homepage": "https://github.com/meteefilm/utility-fns#readme",
   "dependencies": {
-    "@types/numeral": "^2.0.2",
-    "numeral": "^2.0.6",
-    "utility-fns": "file:"
+    "numeral": "^2.0.6"
   }
 }

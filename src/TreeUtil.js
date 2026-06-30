@@ -121,12 +121,13 @@ const findTreeKey = (list, val, condition = "id", key = "key") => {
 }
 
 const findTreeNode = (nodes, key) => {
+    if (!Array.isArray(nodes)) return null;
     for (let node of nodes) {
         if (node.key === key) {
             return node;
         }
         if (node.children) {
-            const found = findNodeByKey(node.children, key);
+            const found = findTreeNode(node.children, key);
             if (found) return found;
         }
     }

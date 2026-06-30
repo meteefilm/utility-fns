@@ -1,457 +1,237 @@
+# utility-fns
 
-## Utility-fns 📝  
-This package is helper functions
-```
+Shared JavaScript utility functions for company Node, Next.js, and React projects.
+
+```bash
 npm install utility-fns
 ```
 
-## Main List Function 🚀  
-- **Null** 
-- **Replace** 
-- **Text**
-- **Tree**
-- **Validate Input**
-- **Convert**
-- **Generate**
-- **Array**
+## Version 2
 
-## Example 
-**Date Function**
+`utility-fns@2.0.0` keeps the old CommonJS entrypoint and common function names, while adding helpers for object mapping, form validation, payload cleanup, UUID generation, strings, dates, and locale data.
+
 ```js
-import {addDays,getCurYearTHgetCurYearTH} from 'utility-fns';
-
-let date = new Date() //2023-08-03 10:00:00
-
-console.log(addDays(date,1));  //  return '2023-08-04 10:00:00'
-console.log(getCurYearTH());     //  return 2566
+const {
+  NullString,
+  formatDate,
+  getFirstValue,
+  buildName,
+  reqKeys,
+  reqValues,
+  generateUUID,
+} = require("utility-fns");
 ```
 
+## Main Groups
+
+- Null/default helpers
+- Convert/type helpers
+- Date helpers
+- Object/data helpers
+- Payload/form helpers
+- String helpers
+- Array/list helpers
+- Tree helpers
+- Validate helpers
+- UUID helpers
+- Locale constants
+
+## Object Helpers
+
+Use `getFirstValue` when payload keys can differ by casing or naming convention.
+
 ```js
-
-import {getYearList} from 'utility-fns';
-
-console.log(getYearList());     //  return '2556-2576' //current year +- 10
-console.log(getYearList(2560,2570));     //  return '2560-2570'
-console.log(getYearList(2020,2030));     //  return '2563-2573'
-
-// return format
-[
-  { value : 2560, label : 2560, revalue : 2017 },
-  { value : 2561, label : 2561, revalue : 2018 },
-  ...
-  { value : 2570, label : 2570, revalue : 2027 },
-]
-
-console.log(getYearList(2020,2030,'en'));     //  return '2020-2030'
-// return format
-[
-  { value : 2020, label : 2020, revalue : 2563 },
-  { value : 2021, label : 2021, revalue : 2564 },
-  ...
-  { value : 2030, label : 2023, revalue : 2573 },
-]
-
+const userId = getFirstValue(payload, ["userId", "user_id", "username", "login"]);
 ```
 
+Use `buildName` to compose any label from selected keys.
+
 ```js
-import {configDateTH} from 'utility-fns';
-
-console.log(configDateTH())
-return {
-    firstDayOfWeek: 1,
-    numthai: ["๐", "๑", "๒", "๓", "๔", "๕", "๖", "๗", "๘", "๙"],
-    dayNames: [ "อาทิตย์", "จันทร์", "อังคาร", "พุทธ", "พฤหัสบดี", "ศุกร์", "เสาร์", ],
-    dayNamesShort: ["อา.", "จ.", "อ.", "พ.", "พฤ.", "ศ.", "ส."],
-    dayNamesMin: ["อา.", "จ.", "อ.", "พ.", "พฤ.", "ศ.", "ส."],
-    monthNames: [ "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม" ],
-    monthNamesShort: [ "ม.ค.", "ก.พ.", "มี.ค", "เม.ย", "พ.ค", "มิ.ย", "ก.ค.", "ส.ค","ก.ย.", "ต.ค.", "พ.ย.","ธ.ค." ],
-    today: "วันนี้",
-    clear: "ล้าง",
-    dateFormat: "dd/mm/yyyy",
-    weekHeader: "Sm",
-  }
-
+const companyName = buildName(company, ["companyTitle", "companyName"]);
+const personName = buildName(user, [["name", "Name"], ["surName", "SurName"]]);
 ```
 
-```js
-import {getMonthData,getMonthList} from 'utility-fns';
-
-console.log(getMonthList());
-return [
-  { index : 0, id : 1 , value : "1" , code : "01", label : "มกราคม" , short : "ม.ค." , full : "01 - มกราคม" ,fullShort : "01 - ม.ค."    }
-  { index : 1, id : 2 , value : "2" , code : "02", label : "กุมภาพันธ์" , short : "ก.พ." , full : "02 - กุมภาพันธ์" ,fullShort : "02 - ก.พ."  }
-  ...
-  { index : 11, id : 12 , value : "12" , code : "12", label : "ธันวาคม" , short : "ธ.ค." , full : "12 - ธันวาคม" ,fullShort : "12 - ธ.ค."   }
-]
-
-console.log(getMonthList("EN"));
-return [
-  { index : 0, id : 1 , value : "1" , code : "01", label : "January" , short : "Jan", full : "01 - January" ,fullShort : "01 -  Jan"   }
-  { index : 1, id : 2 , value : "2" , code : "02", label : "February" , short : "Feb", full : "02 - February" ,fullShort : "02 - Feb"   }
-  ...
-  { index : 11, id : 12 , value : "12" , code : "12", label : "December" , short : "Dec", full : "12 - December" ,fullShort : "12 - Dec" }
-]
-
-//default check values return label
-console.log(getMonthData("6")); // return  "มกราคม"
-console.log(getMonthData(6,"id","full")); // return  "01 - มกราคม""
-console.log(getMonthData(6,"id","label","EN")); // return  "June"
-
-```
+Use `buildFullName` for the common person-name pattern. It supports `titleName`, `title`, or `prefix` before the name.
 
 ```js
-import {formatDateTH} from 'utility-fns';
-
-FormatOptions {
-    date : string | Date;
-    type ?: boolean | string | number;
-}
-
-console.log(formatDateTH({ date : new Date() })) //return 03/08/2566 07:30:10
-console.log(formatDate({ date : new Date(), type : false })) //return 03/08/2566
-console.log(formatDate({ date : "2023-01-25" })) //return 25/01/2566 07:30:10
-
-```
-
-
-```js
-import {formatDateInt} from 'utility-fns';
-
-console.log(formatDateInt({ date : new Date() })) //return 20241128
-console.log(formatDateInt({ date : new Date(), type : true })) //return 20241128 101010
-
-```
-
-
-```js
-import {formatDate} from 'utility-fns';
-
-FormatOptions {
-    date : string | Date;
-    type ?: boolean | string | number;
-    regEx ?: boolean; 
-    regStr ?: string;
-    format ?: number;
-}
-
-console.log(formatDate({ date : new Date() })) //return 2023-08-03 07:30:10
-console.log(formatDate({ date : new Date(), type : false })) //return 2023-08-03
-console.log(formatDate({ date : new Date(), format :1 })) //return 03-08-2023 07:30:10
-console.log(formatDate({ date : new Date(), format :1 , regStr : "/" })) //return 03/08/2023 07:30:10
-console.log(formatDate({ date : new Date() , regEx : false })) //return 20230803 073010
-
-```
-
-| **operate** 	|  **action**  	| **formate**            	| **result**          	| **detail**                                     	|
-|:-----------:	|:------------:	|------------------------	|---------------------	|------------------------------------------------	|
-|   **type**  	| 0,false      	| yyyy-mm-dd             	| 2023-08-03          	| only date                                      	|
-|             	| 1,true       	| yyyy-mm-dd HH24:MI:SS  	| 2023-08-03 07:30:10 	| date and time                                  	|
-|             	| 2,"FROM","F" 	| yyyy-mm-dd 23:59:59    	| 2023-08-03 23:59:59 	| date and fix time 23:59:59                     	|
-|             	| 3,"TO","T"   	| yyyy-mm-dd 00:00:00    	| 2023-08-03 00:00:00 	| date and fix time 00:00:00                     	|
-|  **format** 	| 0            	| yyyy-mm-dd HH24:MI:SS  	| 2023-08-03 07:30:10 	| **_default_**                                  	|
-|             	| 1            	| dd-mm-yyyy HH24:MI:SS  	| 03-08-2023 07:30:10 	| swap year and day                              	|
-|  **regEx**  	| false        	| yyyymmdd HH24MISS      	| 20230803 073010     	| repalce  **-** and **:**                       	|
-|             	| true         	| yyyy-mm-dd HH24:MI:SS  	| 2023-08-03 07:30:10 	| **_default_**                                  	|
-|  **regStr** 	| -            	|                        	|                     	| **_default_**                                  	|
-|             	| / or etc     	| yyyy/mm/dd HH24:MI:SS  	| 2023/08/03 07:30:10 	| replace only date and **regEx** value is true. 	|
-
-**Calculate Date Function**
-```js
-import {addDays,diffInDays} from 'utility-fns';
-const now = new Date(); // 2025-01-01T00:00:00.000Z
-const add7Days = addDays(now, 7); // 2025-01-08T00:00:00.000Z
-const diffDays = diffInDays(now, add7Days); // 7
-```
-
-**Null Function**
-```js
-import {NullString,NullInt,ZeroToNull,NullToPoint,NullArray} from 'utility-fns';
-//null undefined
-console.log(NullString(null));  //  return ''
-console.log(NullInt(null));     //  return 0
-console.log(NullArray(null));     //  return []
-console.log(ZeroToNull(0));     //  return ''
-console.log(NullToPoint(null)); //  return '-'
-```
-
-**Text Function**
-```js
-import {RandomText,NumberFormat} from 'utility-fns';
-
-console.log(RandomText()); //Ar12xderfv
-console.log(RandomText(5)); //B7sM
-
-console.log(NumberFormat(1234)); //1,234.00
-console.log(NumberFormat(1234,false)); //1234
-
-```
-
-**Convert Function**
-```js
-import {convertDateInt,convertNumber,convertString} from 'utility-fns';
-
-console.log(convertDateInt("20241128")); // 2024-08-02T17:00:00.000Z
-
-// Convert number without set default return
-console.log(convertNumber("123")); // 123
-console.log(convertNumber(null)); // 0
-// Convert number with set default return
-console.log(convertNumber("123", -1)); // 123
-console.log(convertNumber(null, -1)); // -1
-
-// Convert string without set default return
-console.log(convertString("text")); // "text"
-console.log(convertString(null)); // ""
-// Convert string with set default return
-console.log(convertString("text", "Default text")); // "text"
-console.log(convertString(null, "Default text")); // "Default text"
-
-```
-
-**Generate Function**
-```js
-import {randomRGB,randomRGBA} from 'utility-fns';
-
-console.log(randomRGB()); // rgba(3, 189, 234)
-console.log(randomRGBA()); // rgba(3, 189, 234, 0.2)
-
-```
-
-**Replace Function**
-```js
-import {replaceNull,replaceNoENtoTH,repNET,replaceDataToKey,repDTK} from 'utility-fns';
-
-const key  = { name : "" , surname : "test", age : 0 , check : true, list : [], obj : {} }
-let data = { name : "test", surname : null, age : null  }
-
-console.log(replaceNoENtoTH(123)); //๑๒๓
-console.log(repNET(123)); //๑๒๓
-
-console.log(replaceNull(data)); //{ name : "", surname :"", age : "" }
-console.log(replaceDataToKey(data,key)); //{  name : "test" , surname : "test", age : 0 , check : true }
-console.log(repDTK(data,key)); //{  name : "test" , surname : "test", age : 0 , check : true, list : [], obj : {} }
-
-```
-
-**Tree Function**
-```js
-import {convertListToTree,findTreeKey,changeKeyTree} from 'utility-fns';
-
-let list = [
-    { id : 'science', label : 'science' , ctlId : '', level : 1 },
-    { id : 'it', label : 'it' , ctlId : '', level : 1 },
-    { id : 'physics', label : 'Physics' , ctlId : 'science', level : 2 },
-    { id : 'chemistry', label : 'Chemistry' , ctlId : 'science', level : 2 },
-    { id : 'biology', label : 'Biology' , ctlId : 'science', level : 2 },
-    { id : 'programming', label : 'Programming' , ctlId : 'it', level : 2 },
-    { id : 'database', label : 'Database' , ctlId : 'it', level : 2 },
-    { id : 'mysql', label : 'MySql' , ctlId : 'database', level : 3 },
-    { id : 'oracle', label : 'Oracle' , ctlId : 'database', level : 3 },
-];
-
-list = convertListToTree(list,"level" ,"ctlId", "id")
-console.log(list); 
-
-console.log("findeTreeKey ",findeTreeKey(list,'database','id')) //2-2
-console.log("findeTreeKey ", findeTreeKey(list,'2-2-1','key','id')) //MySql
-
-result convert : [
-    {
-        "id": "science",
-        "label": "science",
-        "ctlId": "",
-        "level": 1,
-        "children": [...]
-,
-        "key": "1",
-        "data": {...}
-    },
-    {
-        "id": "it",
-        "label": "it",
-        "ctlId": "",
-        "level": 1,
-        "children": [
-            {
-                "id": "programming",
-                "label": "Programming",
-                "ctlId": "it",
-                "level": 2,
-                "key": "2-1",
-                "data": {
-                    "id": "programming",
-                    "label": "Programming",
-                    "ctlId": "it",
-                    "level": 2
-                }
-            },
-            {
-                "id": "database",
-                "label": "Database",
-                "ctlId": "it",
-                "level": 2,
-                "children": [
-                    {
-                        "id": "mysql",
-                        "label": "MySql",
-                        "ctlId": "database",
-                        "level": 3,
-                        "data": {
-                            "id": "mysql",
-                            "label": "MySql",
-                            "ctlId": "database",
-                            "level": 3
-                        },
-                        "key": "2-2-1"
-                    },
-                    {
-                        "id": "oracle",
-                        "label": "Oracle",
-                        "ctlId": "database",
-                        "level": 3,
-                        "data": {
-                            "id": "oracle",
-                            "label": "Oracle",
-                            "ctlId": "database",
-                            "level": 3
-                        },
-                        "key": "2-2-2"
-                    }
-                ],
-                "key": "2-2",
-                "data": {
-                    "id": "database",
-                    "label": "Database",
-                    "ctlId": "it",
-                    "level": 2,
-                    "children": [
-                        {
-                            "id": "mysql",
-                            "label": "MySql",
-                            "ctlId": "database",
-                            "level": 3
-                        },
-                        {
-                            "id": "oracle",
-                            "label": "Oracle",
-                            "ctlId": "database",
-                            "level": 3
-                        }
-                    ]
-                }
-            }
-        ],
-        "key": "2",
-        "data": {
-            "id": "it",
-            "label": "it",
-            "ctlId": "",
-            "level": 1,
-            "children": [
-                {
-                    "id": "programming",
-                    "label": "Programming",
-                    "ctlId": "it",
-                    "level": 2
-                },
-                {
-                    "id": "database",
-                    "label": "Database",
-                    "ctlId": "it",
-                    "level": 2,
-                    "children": [
-                        {
-                            "id": "mysql",
-                            "label": "MySql",
-                            "ctlId": "database",
-                            "level": 3
-                        },
-                        {
-                            "id": "oracle",
-                            "label": "Oracle",
-                            "ctlId": "database",
-                            "level": 3
-                        }
-                    ]
-                }
-            ]
-        }
-    }
-]
-
-```
-
-**Validate Input Function**
-```js
-import {Validator,validateCitizenId} from 'utility-fns';
-// Validate Thai Citizen ID (13 digits with check digit)
-console.log(Validator.isCitizenId("1234567890123")); // false
-console.log(Validator.isCitizenId("1234567890121")); // true
-// Both ways work the same
-console.log(validateCitizenId("1234567890121")); // true
-
-// Validate Container ID (ISO 6346 standard)
-console.log(Validator.isContainerID("AAAU1234567")); // false
-console.log(Validator.isContainerID("AAAU1234566")); // true
-```
-
-**Array Function**
-```js
-import {groupBy} from 'utility-fns';
-
-const users = [
-    { id: 1, name: 'Alice', department: 'Engineering', details: { age: 30, city: 'Bangkok' } },
-    { id: 2, name: 'Bob', department: 'Sales', details: { age: 25, city: 'Chiang Mai' } },
-    { id: 3, name: 'Charlie', department: 'Engineering', details: { age: 35, city: 'Bangkok' } },
-    { id: 4, name: 'David', department: 'Sales', details: { age: 28, city: 'Phuket' } },
-];
-
-// String path
-const byDepartment = groupBy(users, 'department');
-console.log(byDepartment);
-{
-    Engineering: [
-        { id: 1, name: "Alice", department: "Engineering", details: { age: 30, city: "Bangkok" } },
-        { id: 3, name: "Charlie", department: "Engineering", details: { age: 35, city: "Bangkok" } },
-    ],
-    Sales: [
-        { id: 2, name: "Bob", department: "Sales", details: { age: 25, city: "Chiang Mai" } },
-        { id: 4, name: "David", department: "Sales", details: { age: 28, city: "Phuket" } },
-    ],
-}
-
-// Nested path
-const byCity = groupBy(users, 'details.city');
-console.log(byCity);
-{
-    Bangkok: [
-        { id: 1, name: "Alice", department: "Engineering", details: { age: 30, city: "Bangkok" } },
-        { id: 3, name: "Charlie", department: "Engineering", details: { age: 35, city: "Bangkok" } },
-    ],
-    "Chiang Mai": [
-        { id: 2, name: "Bob", department: "Sales", details: { age: 25, city: "Chiang Mai" } },
-    ],
-    Phuket: [
-        { id: 4, name: "David", department: "Sales", details: { age: 28, city: "Phuket" } },
-    ],
-}
-
-// Function
-const byAgeGroup = groupBy(users, (user: any) => {
-    const age = user.details.age;
-    if (age < 30) return '20s';
-    if (age < 40) return '30s';
-    return '40+';
+const fullName = buildFullName({
+  titleName: "Title",
+  Name: "First",
+  SurName: "Last",
 });
-console.log(byAgeGroup);
-{
-    "30s": [
-        { id: 1, name: "Alice", department: "Engineering", details: { age: 30, city: "Bangkok" } },
-        { id: 3, name: "Charlie", department: "Engineering", details: { age: 35, city: "Bangkok" } },
-    ],
-    "20s": [
-        { id: 2, name: "Bob", department: "Sales", details: { age: 25, city: "Chiang Mai" } },
-        { id: 4, name: "David", department: "Sales", details: { age: 28, city: "Phuket" } },
-    ],
-}
 ```
+
+Nested object helpers:
+
+```js
+const value = getPath(data, "user.profile.id");
+const nextData = setPath(data, "user.profile.id", "U001");
+const renamed = renameKeys(data, { user_id: "userId" });
+const omitted = omitByKeys(data, ["password"]);
+```
+
+## Form Validation
+
+Use `reqKeys` for short key-based required validation.
+
+```js
+const onValidate = (_data) => {
+  const valid = reqKeys(_data, ["roleId", "status"], ["seq"], true);
+  setSubmitted(!valid);
+  return valid;
+};
+```
+
+Signature:
+
+```js
+reqKeys(data, keys, intKeys, allowZero);
+```
+
+Use `reqCheck` when you need details.
+
+```js
+const result = reqCheck(data, ["roleId", "status"], ["seq"]);
+
+console.log(result.valid);
+console.log(result.submitted);
+console.log(result.missingAll);
+```
+
+Use `reqValues` when you already have values instead of keys.
+
+```js
+const valid = reqValues([data.roleId, data.status], [data.seq], true);
+```
+
+Full validation helpers are also available:
+
+```js
+const result = validateRequiredKeys(data, {
+  keys: ["roleId", "status"],
+  intKeys: ["seq"],
+  allowZero: true,
+});
+```
+
+## Payload Helpers
+
+```js
+const cleaned = cleanPayload(formData, {
+  trim: true,
+  removeEmpty: true,
+});
+
+const trimmed = trimPayload(formData);
+const nullPayload = emptyToNull(formData);
+const emptyPayload = nullToEmpty(formData);
+const missing = getMissingKeys(formData, ["roleId", "status"]);
+```
+
+## String Helpers
+
+```js
+normalizeText("  A   B  "); // "A B"
+onlyDigits("A-123-B"); // "123"
+maskText("1234567890", { visibleStart: 2, visibleEnd: 2 }); // "12******90"
+padNumber(7, 3); // "007"
+isEnglishText("John Doe"); // true
+```
+
+## UUID Helpers
+
+Use `generateUUID` for general code. It chooses a suitable implementation for the current runtime.
+
+```js
+const id = generateUUID();
+```
+
+Runtime-specific helpers are also available:
+
+```js
+const clientId = generateUUIDClient();
+const nodeId = generateUUIDNode();
+const aliasId = uuid();
+```
+
+## Date Helpers
+
+The old names still work:
+
+```js
+formatDate({ date: new Date() });
+formatDateInt({ date: new Date() });
+formatDateTH({ date: new Date() });
+```
+
+New aliases are easier to read:
+
+```js
+formatDateTime(new Date());
+formatDateOnly(new Date());
+formatDateCompact(new Date(), true);
+formatThaiDate(new Date(), true);
+parseDateInt("20240102");
+```
+
+## Convert Helpers
+
+```js
+convertNumber("123"); // 123
+convertString(null, "N/A"); // "N/A"
+convertBoolean("Y"); // true
+
+TypeConverter.number("123");
+TypeConverter.string(null);
+TypeConverter.boolean("0");
+TypeConverter.array(null);
+```
+
+## Null Helpers
+
+Existing helpers are kept for compatibility:
+
+```js
+NullString(null); // ""
+NullInt(null); // 0
+NullArray(null); // []
+NullToPoint(null); // "-"
+```
+
+For new code that needs to preserve `0`, prefer:
+
+```js
+toStringSafe(0); // "0"
+isBlank(" "); // true
+```
+
+## Array/List Helpers
+
+```js
+sortIndexOfList({ arr: list });
+sortAndOrderList({ arr: list, key: "index" });
+groupBy(users, "department");
+findList({ arr: options, code: "A", key: "value", name: "label" });
+```
+
+## Tree Helpers
+
+```js
+const tree = convertListToTree(list, "level", "parentId", "id");
+const key = findTreeKey(tree, "menu001", "id", "key");
+const node = findTreeNode(tree, "1-1");
+```
+
+## Locale Constants
+
+```js
+TH_MONTH_NAMES;
+TH_MONTH_NAMES_SHORT;
+EN_MONTH_NAMES;
+EN_DAY_NAMES;
+TH_CALENDAR_LOCALE;
+```
+
+## Migration Notes
+
+See `MIGRATION_V2.md` for upgrade notes and compatibility details.

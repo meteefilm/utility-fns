@@ -1,9 +1,24 @@
 
 'use strict';
 
-module.exports.NullString = (value) => {
+const NullString = (value) => {
     return !value || value === null ? "" : value;
-}
+};
+
+const toStringSafe = (value, defaultValue = "") => {
+    if (value === null || value === undefined) return defaultValue;
+    return String(value);
+};
+
+const isBlank = (value) => {
+    return value === null || value === undefined || String(value).trim() === "";
+};
+
+module.exports.NullString = NullString;
+
+module.exports.toStringSafe = toStringSafe;
+
+module.exports.isBlank = isBlank;
 
 module.exports.NullSelect = (value) => {
     return !value || value === null ? "N" : value;
